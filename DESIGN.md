@@ -1,4 +1,4 @@
-# PS5 Emulation Tracker: design
+# GTA 6 PC Tracker: design
 
 Planning notes for the redesign, written with the `/awwwards` method (brief, concept, system), so later
 changes stay consistent.
@@ -147,7 +147,7 @@ Sheets, not cards: 2 px radius everywhere, hairline borders, no drop shadows exc
 ### Composition plan
 
 ```
-TOP BAR  [⊕ PS5 Emulation Tracker]            [Emulators GTA 6 Games People FAQ]  [Fund] [◐]
+TOP BAR  [⊕ GTA 6 PC Tracker]            [Emulators GTA 6 Games People FAQ]  [Fund] [◐]
 HERO     ┌⊕──────────────────────────────────────────────────────────────────────⊕┐
 (poster) │ P S 5   (K plate, mega; C/M/Y plates off register)   │ statement, t-m  │
          │                                                        │ live line       │

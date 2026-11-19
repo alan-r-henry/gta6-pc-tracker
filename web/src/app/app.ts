@@ -12,7 +12,7 @@ import { PlayableGame, ProjectDef, ProjectName, Snapshot } from './models';
 import { GTA6_RELEASE, PROJECTS, PS5_CATALOG_FALLBACK } from './projects';
 import { TrackerService } from './tracker.service';
 import { FpsDemo } from './fps-demo';
-import { GtaRoutes } from './gta-routes';
+import { GtaRoutes, Route, RouteData, STATUS_CLASS } from './gta-routes';
 
 interface Stat {
   label: string;
@@ -99,15 +99,31 @@ export class App {
   protected readonly theme = signal<Theme>(readTheme());
 
   protected readonly navLinks = [
-    { href: '#projects', label: 'Emulators' },
-    { href: '#gta6', label: 'GTA 6' },
+    { href: '#gta6-routes', label: 'Routes' },
+    { href: '#gta6-players', label: 'Key players' },
+    { href: '#gta6', label: 'Emulation' },
     { href: '#playable', label: 'Games' },
-    { href: '#contributors', label: 'People' },
     { href: '#faq', label: 'FAQ' },
   ];
 
+  protected readonly statusClass = STATUS_CLASS;
+  /** data/gta_status.json (kept by hand): the routes to GTA 6 on PC, for the hero and the routes section. */
+  protected readonly status = signal<RouteData | null>(null);
+  protected readonly routes = computed<Route[]>(() => this.status()?.routes ?? []);
+  /** The hero's answer, from whichever routes work today. */
+  protected readonly heroLede = computed(() => {
+    const working = this.routes().filter(r => r.status === 'works').map(r => r.title);
+    const now = working.length === 1 ? `Today one route works: ${working[0]}.`
+      : working.length ? `Today ${working.length} routes work: ${working.join('; ')}.` : 'No route works yet.';
+    return `GTA 6 is out on PS5 and Xbox, not on PC. This tracker follows every way people are trying to get it onto one, from Rockstar's own port to emulators and fan ports. ${now}`;
+  });
+
   constructor() {
     countVisit();
+    void fetch('data/gta_status.json', { cache: 'no-cache' })
+      .then(r => (r.ok ? r.json() : null))
+      .then((s: RouteData | null) => this.status.set(s && Array.isArray(s.routes) ? s : null))
+      .catch(() => this.status.set(null));
     void this.svc.refreshAll();
     const clock = setInterval(() => this.now.set(new Date()), 30_000);
     const auto = setInterval(() => void this.svc.refreshAll(), AUTO_REFRESH_MS);

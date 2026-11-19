@@ -1,7 +1,7 @@
 {
-  "name": "PS5 Emulation Tracker",
-  "short_name": "PS5 Emu Tracker",
-  "description": "Daily progress of PS5 emulators on PC, playable games and GTA 6 emulation readiness.",
+  "name": "GTA 6 PC Tracker",
+  "short_name": "GTA 6 PC",
+  "description": "Every route to GTA 6 on PC: Rockstar's port, Remote Play, cloud, fan ports and PS5 emulation.",
   "start_url": "./",
   "scope": "./",
   "display": "browser",

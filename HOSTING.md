@@ -1,4 +1,4 @@
-# Publishing the PS5 Emulation Tracker
+# Publishing the GTA 6 PC Tracker
 
 The site is published to **https://alan-r-henry.github.io/ps5-emu-tracker/** by GitHub Actions
 (`.github/workflows/deploy.yml`). The workflow collects fresh data every 3 hours, builds the Angular app

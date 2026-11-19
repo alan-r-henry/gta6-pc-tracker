@@ -1,4 +1,4 @@
-/* PS5 Emulation Tracker. A press sheet: ink on proof paper, hairlines, registration marks, and one colour per
+/* GTA 6 PC Tracker. A press sheet: ink on proof paper, hairlines, registration marks, and one colour per
    emulator (AnyPS5 cyan, KytyPS5 magenta, SharpEmu yellow). DESIGN.md has the system. */
 
 :root {
@@ -210,6 +210,12 @@ main { display: grid; gap: clamp(56px, 7vw, 104px); min-width: 0; }
 .meters { grid-column: 8 / 13; align-self: center; list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--line); }
 .meters li { border-bottom: 1px solid var(--line); }
 .series-1 { --accent: var(--series-1); } .series-2 { --accent: var(--series-2); } .series-3 { --accent: var(--series-3); }
+/* The hero lists every route to GTA 6 on PC with its status, coloured like the emulator stages. */
+.route-meters a { align-items: center; padding: 11px 0 10px; }
+.route-meters .meter-name { font-size: var(--t-body); }
+.route-meters .meter-name::before { width: 10px; height: 10px; }
+.route-meters .stage { white-space: nowrap; }
+.rs-works { --accent: var(--ok); } .rs-partial { --accent: var(--series-3); } .rs-blocked { --accent: var(--muted); }
 .meters a {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 6px 12px;
   padding: 16px 0 14px; text-decoration: none;

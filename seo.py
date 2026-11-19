@@ -28,9 +28,9 @@ STAGE = {"none": "not tested", "boots": "boots", "menus": "reaches the menus", "
 STAGE_RANK = ["none", "boots", "menus", "ingame", "playable"]
 GTA_QUESTIONS = 5  # the first entries of FAQ, repeated on the gta-6/ page
 FAQ = [
-    ("Can I play GTA 6 on PC with a PS5 emulator?",
-     "{gta6_lead} GTA 6 {gta6_verb} on PS5 and Xbox Series X|S on November 19, 2026. Before any "
-     "emulator can try it, someone has to copy the game off a PS5, and that's blocked for now: GTA 6 "
+    ("Can I play GTA 6 on PC?",
+     "{gta6_lead} GTA 6 {gta6_verb} on PS5 and Xbox Series X|S on November 19, 2026, with no PC version. The "
+     "one way to play it on a PC is Remote Play from your own console. Before a PS5 emulator can try it, someone has to copy the game off a PS5, and that's blocked for now: GTA 6 "
      "needs firmware 14.23, and there's no public way to copy games off a PS5 on that firmware. Even then, no PS5 "
      "emulator runs a game this size yet. The GTA 6 readiness score tracks each step."),
     ("Does GTA 6 need PS5 firmware 14.23?",
@@ -189,7 +189,7 @@ def gta_status(data):
 
 
 GTA6_RELEASE = "2026-11-19"  # same as web/src/app/projects.ts
-NAV = [("#projects", "Emulators"), ("#gta6", "GTA 6"), ("#playable", "Games"), ("#contributors", "People"), ("#faq", "FAQ")]
+NAV = [("#gta6-routes", "Routes"), ("#gta6-players", "Key players"), ("#gta6", "Emulation"), ("#playable", "Games"), ("#faq", "FAQ")]
 
 
 def hero_progress(snaps):
@@ -203,28 +203,33 @@ def hero_progress(snaps):
             ("SharpEmu", 3, tested_share(snaps.get("SharpEmu", {})), "of tested games reach playable")]
 
 
-def static_hero(snaps, games, today):
+def static_hero(snaps, games, today, status):
     """The app's top bar and hero as plain HTML, so the hero paints with the first frame. The app replaces it
     with the same markup when it starts; keep it in step with web/src/app/app.html. The CSP forbids inline
     styles, so each meter's colour comes from a class (.series-N in styles.css)."""
     pages = len(game_groups(games))
     days = (dt.date.fromisoformat(GTA6_RELEASE) - dt.date.fromisoformat(today)).days
+    routes = [r for r in status.get("routes") or [] if isinstance(r, dict) and r.get("title")]
+    stage = {"works": "s-playable", "partial": "s-menus", "blocked": "s-none"}
     meters = "".join(
-        f'<li class="series-{n}"><a href="#card-{name}"><span class="meter-name">{name}</span>'
-        f'<span class="meter-value num">{"…" if share is None else f"{share * 100:.0f}%"}</span>'
-        f'<meter min="0" max="1" value="{0 if share is None else round(min(max(share, 0), 1), 4)}" aria-hidden="true"></meter>'
-        f'<span class="meter-measure">{measure}</span></a></li>' for name, n, share, measure in hero_progress(snaps))
+        f'<li class="rs-{e(r.get("status", "blocked"))}"><a href="#gta6-routes"><span class="meter-name">{e(r["title"])}</span>'
+        f'<span class="stage {stage.get(r.get("status"), "s-none")}">{e(r.get("label", ""))}</span></a></li>' for r in routes)
+    working = [r["title"] for r in routes if r.get("status") == "works"]
+    lede = ("GTA 6 is out on PS5 and Xbox, not on PC. This tracker follows every way people are trying to get it onto "
+            "one, from Rockstar’s own port to emulators and fan ports. "
+            + (f"Today one route works: {working[0]}." if len(working) == 1
+               else f"Today {len(working)} routes work: {'; '.join(working)}." if working else "No route works yet."))
     nav = "".join(f'<li><a class="nav-link" href="{h}">{label}</a></li>' for h, label in NAV)
-    gta = (f'<a class="hero-gta" href="#gta6">GTA 6 reaches PS5 in <b class="num">{days}</b> {"day" if days == 1 else "days"}</a>'
-           if days > 0 else f'<a class="hero-gta" href="#gta6">GTA 6 is out on PS5{" today" if days == 0 else ""}</a>')
-    return f"""<header class="topbar"><a class="brand" href="#top"><span class="reg" aria-hidden="true"></span><span>PS5 <span class="brand-mid">Emulation </span>Tracker</span></a>
+    gta = (f'<a class="hero-gta" href="#gta6-routes">GTA 6 reaches consoles in <b class="num">{days}</b> {"day" if days == 1 else "days"}</a>'
+           if days > 0 else '<a class="hero-gta" href="#gta6-routes">GTA 6 is out on PS5 and Xbox, not PC</a>')
+    return f"""<header class="topbar"><a class="brand" href="#top"><span class="reg" aria-hidden="true"></span><span>GTA 6 <span class="brand-mid">PC </span>Tracker</span></a>
 <nav class="nav" aria-label="Sections"><ul class="nav-list">{nav}<li><a class="nav-link" href="games/">All games</a></li></ul></nav></header>
 <div class="page" id="top">
 <section class="hero" aria-labelledby="hero-h">
-<div class="hero-copy"><h1 id="hero-h">PS5 Emulation Tracker</h1>
-<p class="hero-lede">Three open-source projects are teaching PCs to run PS5 games. Here’s how far each one has got.</p>
-<a class="cta" href="games/"><span>Browse the {pages} games that run on PC</span></a></div>
-<ul class="meters" aria-label="Progress by emulator">{meters}</ul>
+<div class="hero-copy"><h1 id="hero-h">Can you play GTA 6 on PC?</h1>
+<p class="hero-lede">{e(lede)}</p>
+<a class="cta" href="#gta6-routes"><span>See every route to GTA 6 on PC</span></a></div>
+<ul class="meters route-meters" aria-label="Every route to GTA 6 on PC">{meters}</ul>
 <div class="hero-foot"><div class="livebar" role="status"><span class="live-now"><span class="pulse" aria-hidden="true"></span>Loading live figures…</span><span class="muted">History saved through {e(long_date(max((s.get("date", "") for s in snaps.values()), default=today)))}</span></div>{gta}</div>
 </section>"""
 
@@ -262,15 +267,16 @@ def build(data, today):
     faq = [(q, a) for q, a in faq if a]
 
     description = (
-        f"PS5 emulation, tracked daily: KytyPS5 runs {num(kyty.get('games_top'))} games in-game, SharpEmu "
-        f"{num(sharp.get('games_top'))} playable, AnyPS5 {lib:.1f}% of system functions. Plus GTA 6 readiness."
+        f"Every route to GTA 6 on PC, tracked: Rockstar's port, Remote Play, cloud, fan ports and PS5 emulation. "
+        f"KytyPS5 runs {num(kyty.get('games_top'))} PS5 games in-game, SharpEmu {num(sharp.get('games_top'))} playable."
         if lib is not None else None
     )
 
-    out = [static_hero(snaps, games, today), '<main class="seo-summary">',
-           f"<p>Daily progress of PS5 emulation on PC, updated {e(long_date(today))}: the AnyPS5, KytyPS5 and "
-           "SharpEmu emulators, every PS5 game that reaches gameplay with its frame rate, and a GTA 6 emulation "
-           "readiness score built from checkable milestones.</p>",
+    out = [static_hero(snaps, games, today, status), '<main class="seo-summary">',
+           f"<p>Every route to GTA 6 on PC, updated {e(long_date(today))}: Rockstar's own port, Remote Play, "
+           "cloud streaming, fan ports and PS5 emulation, with the people working on each. The emulation route is "
+           "tracked in detail: the AnyPS5, KytyPS5 and SharpEmu emulators, every PS5 game that reaches gameplay "
+           "with its frame rate, and a GTA 6 emulation readiness score built from checkable milestones.</p>",
            "<h2>PS5 emulator progress</h2>", "<ul>"]
     if any_ and lib is not None:
         out.append(f"<li>AnyPS5: {lib:.2f}% of known PS5 system functions implemented, "
@@ -326,10 +332,10 @@ def build(data, today):
     out += ["<p>Turn on JavaScript to see the live figures, charts and game list.</p>", "</main>", "</div>"]
 
     graph = [
-        {"@type": "WebSite", "@id": SITE + "#website", "name": "PS5 Emulation Tracker", "url": SITE,
-         "description": "Daily tracker of PS5 emulation on PC: AnyPS5, KytyPS5 and SharpEmu progress, playable "
-                        "PS5 games and GTA 6 emulation readiness."},
-        {"@type": "WebPage", "@id": SITE + "#page", "url": SITE, "name": "PS5 Emulation Tracker",
+        {"@type": "WebSite", "@id": SITE + "#website", "name": "GTA 6 PC Tracker", "url": SITE,
+         "description": "Every route to GTA 6 on PC, tracked: Rockstar's PC version, Remote Play, cloud "
+                        "streaming, fan ports and PS5 emulation, with daily emulator progress and playable PS5 games."},
+        {"@type": "WebPage", "@id": SITE + "#page", "url": SITE, "name": "GTA 6 PC Tracker",
          "dateModified": today, "inLanguage": "en", "isPartOf": {"@id": SITE + "#website"},
          "about": [{"@type": "SoftwareApplication", "name": n, "applicationCategory": "GameApplication",
                     "operatingSystem": "Windows"} for n in ("AnyPS5", "KytyPS5", "SharpEmu")]},
@@ -490,7 +496,7 @@ def page_graph(kind, url, name, description, modified, crumbs, extra=None):
     return ld_json([
         {"@type": kind, "@id": url + "#page", "url": url, "name": name, "description": description,
          "dateModified": modified, "inLanguage": "en",
-         "isPartOf": {"@type": "WebSite", "@id": SITE + "#website", "name": "PS5 Emulation Tracker", "url": SITE},
+         "isPartOf": {"@type": "WebSite", "@id": SITE + "#website", "name": "GTA 6 PC Tracker", "url": SITE},
          "breadcrumb": {"@id": url + "#breadcrumb"}, **(extra or {})},
         {"@type": "BreadcrumbList", "@id": url + "#breadcrumb", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "name": n, "item": u} for i, (n, u) in enumerate(crumbs)]},
@@ -519,7 +525,7 @@ def page_shell(title, description, url, ld, body, style_link, image=None, robots
   <link rel="icon" href="{BASE}icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="{BASE}apple-touch-icon.png">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="PS5 Emulation Tracker">
+  <meta property="og:site_name" content="GTA 6 PC Tracker">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="{e(title)}">
   <meta property="og:description" content="{e(description)}">
@@ -528,14 +534,14 @@ def page_shell(title, description, url, ld, body, style_link, image=None, robots
   <link rel="stylesheet" href="{BASE}game.css">
 {f'  <script src="{BASE}{script}" defer></script>' + chr(10) if script else ''}{f'  <script type="application/ld+json">{ld}</script>' + chr(10) if ld else ''}</head>
 <body class="gp">
-  <header class="gp-top"><a class="gp-brand" href="{BASE}"><span class="reg" aria-hidden="true"></span><span>PS5 Emulation Tracker</span></a><a class="gp-nav" href="{BASE}games/">All games</a></header>
+  <header class="gp-top"><a class="gp-brand" href="{BASE}"><span class="reg" aria-hidden="true"></span><span>GTA 6 PC Tracker</span></a><a class="gp-nav" href="{BASE}games/">All games</a></header>
   <main class="gp-main">
 {body}
   </main>
   <footer class="gp-foot">
     <p>Statuses come from each project's public compatibility list and are checked several times a day. Frame rates are what
     testers reported on their own hardware. Not affiliated with Sony, Rockstar or the emulator projects.</p>
-    <ul class="gp-foot-links"><li><a href="{BASE}">PS5 Emulation Tracker</a></li><li><a href="{BASE}games/">All games</a></li><li><a href="{BASE}gta-6/">GTA 6 on PC</a></li><li><a href="{BASE}#method">How this is measured</a></li><li><a href="{BASE}feed.xml">Feed of new playable games</a></li></ul>
+    <ul class="gp-foot-links"><li><a href="{BASE}">GTA 6 PC Tracker</a></li><li><a href="{BASE}games/">All games</a></li><li><a href="{BASE}gta-6/">GTA 6 on PC</a></li><li><a href="{BASE}#method">How this is measured</a></li><li><a href="{BASE}feed.xml">Feed of new playable games</a></li></ul>
   </footer>
 </body>
 </html>
@@ -677,7 +683,7 @@ def game_page(grp, related, today, style_link):
         description = f"Does {title} run on a PS5 emulator? It's {join_and([phrase(p, False) for p in have])}. Test reports, FPS and hardware."
     page_title = f"{title} on PS5 emulators: status and FPS"
     if len(page_title) <= 45:
-        page_title += " | PS5 Emulation Tracker"
+        page_title += " | GTA 6 PC Tracker"
 
     about = []
     facts = DETAILS.about(grp)
@@ -729,7 +735,7 @@ def game_page(grp, related, today, style_link):
     {f'<section class="gp-text"><h2>{e(rel_heading)}</h2><ul class="gp-related">{rel}</ul></section>' if rel else ''}"""
     image = {"primaryImageOfPage": {"@type": "ImageObject", "url": grp["cover"]}} if grp["cover"] else None
     ld = page_graph("WebPage", url, page_title, description, grp["tested"] or today,
-                    [("PS5 Emulation Tracker", SITE), ("Games", SITE + "games/"), (title, url)], image)
+                    [("GTA 6 PC Tracker", SITE), ("Games", SITE + "games/"), (title, url)], image)
     return page_shell(page_title, description, url, ld, body, style_link,
                       sized(grp["cover"], 1200) if grp["cover"] else None)
 
@@ -832,8 +838,8 @@ def games_index(groups, today, style_link):
     </ul>
     <p class="gp-nomatch" id="gp-nomatch" hidden>No games match. Try fewer letters, or another emulator.</p>"""
     ld = page_graph("CollectionPage", url, title, description, today,
-                    [("PS5 Emulation Tracker", SITE), ("Games", url)])
-    return page_shell(title + " | PS5 Emulation Tracker", description, url, ld, body, style_link, script="games.js")
+                    [("GTA 6 PC Tracker", SITE), ("Games", url)])
+    return page_shell(title + " | GTA 6 PC Tracker", description, url, ld, body, style_link, script="games.js")
 
 
 def related_games(grp, groups, limit=6):
@@ -1009,7 +1015,7 @@ def write_gta_page(site, groups, today, style_link):
         when = "GTA 6's PS5 release date isn't listed yet."
     best = max((STAGE_RANK.index(r["stage"]) for r in (six.get("projects") or {}).values()
                 if r and r.get("stage") in STAGE_RANK), default=0)
-    answer = "Not yet." if best < 4 else "Yes, on a PS5 emulator."
+    answer = ("Only by streaming it from your own console." if best < 4 else "Yes, on a PS5 emulator.")
     lead = [answer, when]
     if best == 0 and not status.get("copyable") and status.get("copy_blocker"):
         lead.append(f"No PS5 emulator can run it at launch, because nobody can copy it off a PS5 yet. {status['copy_blocker']}")
@@ -1045,13 +1051,15 @@ def write_gta_page(site, groups, today, style_link):
 
     routes_html, players_html = gta_routes_html(status)
 
-    title = "Can you play GTA 6 on PC? PS5 emulator readiness"
-    description = (f"{answer} {when} GTA 6 emulation readiness is {score}%, from checkable milestones: whether it can "
-                   "be copied off a PS5, then how far each emulator gets.")
+    title = "Can you play GTA 6 on PC? Every route, tracked"
+    description = (f"{answer} {when} Every route to GTA 6 on PC, from Remote Play and Rockstar's own port to PS5 "
+                   f"emulation, whose readiness is {score}%.")
     body = f"""    <nav class="gp-crumbs" aria-label="Breadcrumb"><a href="{BASE}">Tracker</a> › <span>GTA 6</span></nav>
     <h1>Can you play GTA 6 on PC?</h1>
     <p class="gp-lead">{e(" ".join(lead))}</p>
     <p class="gp-about">Updated {e(long_date(today))}. Emulator results update several times a day from each project's compatibility list.</p>
+    {routes_html}
+    {players_html}
     <section class="gp-text gp-ready">
       <h2>GTA 6 emulation readiness: {score}%</h2>
       <meter class="gp-meter" min="0" max="100" value="{score}" aria-label="GTA 6 emulation readiness">{score}%</meter>
@@ -1071,15 +1079,13 @@ def write_gta_page(site, groups, today, style_link):
         <tbody>{rows}</tbody>
       </table></div>
     </section>
-    {routes_html}
-    {players_html}
     <section class="gp-text">
       <h2>Questions</h2>
       {qa}
     </section>
     {f'<section class="gp-text"><h2>Sources</h2><p>Facts that no compatibility list tracks were last checked on {e(long_date(status["updated"]))}.</p><ul class="gp-sources">{sources}</ul></section>' if sources and status.get("updated") else ''}"""
     ld = page_graph("FAQPage", url, title, description, today,
-                    [("PS5 Emulation Tracker", SITE), ("GTA 6", url)],
+                    [("GTA 6 PC Tracker", SITE), ("GTA 6", url)],
                     {"mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
                                     for q, a in questions]})
     (site / "gta-6").mkdir(exist_ok=True)
@@ -1095,7 +1101,7 @@ def write_404(site, style_link):
       <p class="gp-lead">There’s nothing at this address. It may have moved, or the link may be mistyped.</p>
       <p class="gp-404-links"><a class="gp-cta" href="{BASE}">Back to the tracker</a><a href="{BASE}games/">Every game</a></p>
     </div>"""
-    page = page_shell("Page not found | PS5 Emulation Tracker", "This page doesn't exist on the PS5 Emulation Tracker.",
+    page = page_shell("Page not found | GTA 6 PC Tracker", "This page doesn't exist on the GTA 6 PC Tracker.",
                       None, None, body, style_link, robots="noindex")
     (site / "404.html").write_text(page, encoding="utf-8")
 
@@ -1132,13 +1138,13 @@ def write_feed(site, groups, today, limit=50):
   </entry>""")
     (site / "feed.xml").write_text(f"""<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>PS5 Emulation Tracker: new playable games</title>
+  <title>GTA 6 PC Tracker: new playable games</title>
   <subtitle>PS5 games as they reach gameplay on AnyPS5, KytyPS5 and SharpEmu on PC.</subtitle>
   <link rel="self" href="{SITE}feed.xml"/>
   <link href="{SITE}games/"/>
   <id>{SITE}feed.xml</id>
   <updated>{today}T00:00:00Z</updated>
-  <author><name>PS5 Emulation Tracker</name></author>
+  <author><name>GTA 6 PC Tracker</name></author>
 {chr(10).join(items)}
 </feed>
 """, encoding="utf-8")
@@ -1153,10 +1159,11 @@ def write_llms(site, groups, today):
     best = max((STAGE_RANK.index(r["stage"]) for r in six.values() if r and r.get("stage") in STAGE_RANK), default=0)
     gta6 = (f"The furthest any emulator has got with GTA 6: {GTA_STAGE[STAGE_RANK[best]].lower()}." if best
             else "No PS5 emulator runs GTA 6 yet.")
-    (site / "llms.txt").write_text(f"""# PS5 Emulation Tracker
+    (site / "llms.txt").write_text(f"""# GTA 6 PC Tracker
 
-> A daily tracker of PS5 emulation on PC: the open-source emulators AnyPS5, KytyPS5 and SharpEmu, every PS5 game
-> that reaches gameplay on one of them, and a GTA 6 emulation readiness score built from checkable milestones.
+> Every route to GTA 6 on PC: Rockstar's own PC version, Remote Play, cloud streaming, fan ports and PS5 emulation,
+> with the people working on each. The emulation route is tracked daily: the open-source emulators AnyPS5, KytyPS5
+> and SharpEmu, every PS5 game that reaches gameplay on one of them, and a GTA 6 emulation readiness score.
 > Updated {today}. Not affiliated with Sony, Rockstar or the emulator projects; it never links to exploits,
 > jailbreak tools or game downloads.
 
@@ -1167,7 +1174,7 @@ on SharpEmu, {counts['KytyPS5']} get in-game on KytyPS5 and {counts['AnyPS5']} a
 ## Pages
 
 - [Tracker]({SITE}): each emulator's progress, charts over time, the playable games and the FAQ
-- [Can you play GTA 6 on PC?]({SITE}gta-6/): the readiness score, each milestone, and why it changed by day
+- [Can you play GTA 6 on PC?]({SITE}gta-6/): every route and its status, the key players, and the emulation readiness score
 - [Every game]({SITE}games/): one page per game with its status and test reports on every emulator
 - [How this is measured]({SITE}#method): what each figure means and where it comes from
 

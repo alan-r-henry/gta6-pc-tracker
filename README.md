@@ -1,4 +1,4 @@
-# PS5 Emulation Tracker
+# GTA 6 PC Tracker
 
 **Website: https://alan-r-henry.github.io/ps5-emu-tracker/**
 

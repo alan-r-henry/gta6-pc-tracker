@@ -1,15 +1,15 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { Icon, IconName } from './icon';
 import { longDate } from './format';
 
-type RouteStatus = 'works' | 'partial' | 'blocked';
+export type RouteStatus = 'works' | 'partial' | 'blocked';
 
 interface Source {
   name: string;
   url: string;
 }
 
-interface Route {
+export interface Route {
   title: string;
   status: RouteStatus;
   label: string;
@@ -24,15 +24,15 @@ interface Player {
   url?: string;
 }
 
-/** The parts of data/gta_status.json (kept by hand) this section reads. */
-interface RouteData {
+/** The parts of data/gta_status.json (kept by hand) this section and the hero read. */
+export interface RouteData {
   updated: string;
   routes?: Route[];
   players?: Player[];
 }
 
 /** Stage classes from the readiness table, so a route's status reads like an emulator's. */
-const STATUS_CLASS: Record<RouteStatus, string> = { works: 's-playable', partial: 's-menus', blocked: 's-none' };
+export const STATUS_CLASS: Record<RouteStatus, string> = { works: 's-playable', partial: 's-menus', blocked: 's-none' };
 const safe = (url?: string): string | null => (url && url.startsWith('https://') ? url : null);
 
 /**
@@ -45,10 +45,11 @@ const safe = (url?: string): string | null => (url && url.startsWith('https://')
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (data(); as d) {
+      @if (d.routes?.length) {
       <section class="sec" id="gta6-routes" aria-labelledby="gta6-routes-h">
         <div class="sec-head">
           <h2 id="gta6-routes-h">Every route to GTA 6 on PC</h2>
-          <p class="note">Emulation is one of seven ways people are trying to get GTA 6 onto a PC. Checked {{ longDate(d.updated) }}; each card links its source.</p>
+          <p class="note">The {{ d.routes!.length }} ways people are trying to get GTA 6 onto a PC, and where each one stands. Checked {{ longDate(d.updated) }}; each card links its source.</p>
         </div>
         <ul class="grid routes" role="list">
           @for (r of d.routes; track r.title) {
@@ -63,6 +64,7 @@ const safe = (url?: string): string | null => (url && url.startsWith('https://')
           }
         </ul>
       </section>
+      }
 
       @if (groups().length) {
         <section class="sec" id="gta6-players" aria-labelledby="gta6-players-h">
@@ -98,7 +100,8 @@ export class GtaRoutes {
   protected readonly longDate = longDate;
   protected readonly statusClass = STATUS_CLASS;
   protected readonly safe = safe;
-  protected readonly data = signal<RouteData | null>(null);
+  /** data/gta_status.json, loaded once by the app. */
+  readonly data = input<RouteData | null>(null);
 
   protected readonly groups = computed(() => {
     const icons: Record<string, IconName> = {
@@ -116,10 +119,4 @@ export class GtaRoutes {
     return out;
   });
 
-  constructor() {
-    void fetch('data/gta_status.json', { cache: 'no-cache' })
-      .then(r => (r.ok ? r.json() : null))
-      .then((s: RouteData | null) => this.data.set(Array.isArray(s?.routes) && s.routes.length ? s : null))
-      .catch(() => this.data.set(null));
-  }
 }

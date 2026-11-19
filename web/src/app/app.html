@@ -1,6 +1,6 @@
-<a class="skip" href="#projects">Skip to the figures</a>
+<a class="skip" href="#gta6-routes">Skip to the routes</a>
 <header class="topbar">
-  <a class="brand" href="#top"><span class="reg" aria-hidden="true"></span><span>PS5 <span class="brand-mid">Emulation </span>Tracker</span></a>
+  <a class="brand" href="#top"><span class="reg" aria-hidden="true"></span><span>GTA 6 <span class="brand-mid">PC </span>Tracker</span></a>
   <nav class="nav" aria-label="Sections">
     <ul class="nav-list">
       @for (l of navLinks; track l.href) { <li><a class="nav-link" [href]="l.href">{{ l.label }}</a></li> }
@@ -32,17 +32,15 @@
 <div class="page" id="top">
   <section class="hero" aria-labelledby="hero-h">
     <div class="hero-copy">
-      <h1 id="hero-h">PS5 Emulation Tracker</h1>
-      <p class="hero-lede">Three open-source projects are teaching PCs to run PS5 games. Here’s how far each one has got.</p>
-      <a class="cta" href="games/"><span>Browse the {{ gamePageCount() ? fmt(gamePageCount()) + ' ' : '' }}games that run on PC</span></a>
+      <h1 id="hero-h">Can you play GTA 6 on PC?</h1>
+      <p class="hero-lede">{{ heroLede() }}</p>
+      <a class="cta" href="#gta6-routes"><span>See every route to GTA 6 on PC</span></a>
     </div>
-    <ul class="meters" aria-label="Progress by emulator">
-      @for (m of progress(); track m.name) {
-        <li [style.--accent]="m.color"><a [href]="'#card-' + m.name">
-          <span class="meter-name">{{ m.name }}</span>
-          <span class="meter-value num">{{ m.value }}</span>
-          <meter min="0" max="1" [value]="m.share ?? 0" aria-hidden="true"></meter>
-          <span class="meter-measure">{{ m.measure }}</span>
+    <ul class="meters route-meters" aria-label="Every route to GTA 6 on PC">
+      @for (r of routes(); track r.title) {
+        <li [class]="'rs-' + r.status"><a href="#gta6-routes">
+          <span class="meter-name">{{ r.title }}</span>
+          <span class="stage" [class]="'stage ' + statusClass[r.status]">{{ r.label }}</span>
         </a></li>
       }
     </ul>
@@ -58,7 +56,7 @@
           <app-icon name="refresh" [size]="13" [class.spin]="svc.loading()" />{{ svc.loading() ? 'Refreshing' : 'Refresh' }}
         </button>
       </div>
-      @if (gtaDays(); as n) { <a class="hero-gta" href="#gta6">GTA 6 reaches PS5 in <b class="num">{{ n }}</b> {{ n === 1 ? 'day' : 'days' }}</a> } @else { <a class="hero-gta" href="#gta6">GTA 6 is out on PS5</a> }
+      @if (gtaDays(); as n) { <a class="hero-gta" href="#gta6-routes">GTA 6 reaches consoles in <b class="num">{{ n }}</b> {{ n === 1 ? 'day' : 'days' }}</a> } @else { <a class="hero-gta" href="#gta6-routes">GTA 6 is out on PS5 and Xbox, not PC</a> }
     </div>
     @if (svc.problems().length || svc.historyError()) {
       <ul class="problems">
@@ -69,9 +67,20 @@
   </section>
 
   <main>
+    <app-gta-routes [data]="status()" />
+
+    <app-gta [libraries]="anyLib()" [snapshots]="svc.history()?.snapshots ?? []" [hasPage]="hasGamePages()" />
+
+
+    @defer (on viewport) {
+      <app-fps-demo />
+    } @placeholder {
+      <div class="fps-placeholder" id="fps"></div>
+    }
+
     <section class="sec major" id="projects" aria-labelledby="projects-h">
       <div class="sec-head">
-        <h2 id="projects-h">Emulators</h2>
+        <h2 id="projects-h">PS5 emulators</h2>
         <p class="note">Each project measures progress differently, so the main figure differs per card. Figures marked <span class="tag live">live</span> were fetched just now; the rest come from the last saved snapshot. "Today" is the current UTC day.</p>
       </div>
       <div class="grid">
@@ -112,20 +121,6 @@
         }
       </div>
     </section>
-
-    <app-gta [libraries]="anyLib()" [snapshots]="svc.history()?.snapshots ?? []" [hasPage]="hasGamePages()" />
-
-    @defer (on viewport) {
-      <app-gta-routes />
-    } @placeholder {
-      <div class="routes-placeholder" id="gta6-routes"></div>
-    }
-
-    @defer (on viewport) {
-      <app-fps-demo />
-    } @placeholder {
-      <div class="fps-placeholder" id="fps"></div>
-    }
 
     <section class="sec" id="road" aria-labelledby="road-h">
       <div class="sec-head">
@@ -349,8 +344,8 @@
     <section class="sec faq" id="faq" aria-labelledby="faq-h">
       <h2 id="faq-h">Questions</h2>
       <details id="faq-gta6-pc" open>
-        <summary>Can I play GTA 6 on PC with a PS5 emulator?</summary>
-        <p>@if (gtaDays()) {Not yet, and not at launch. GTA 6 comes out} @else {Not yet. GTA 6 came out} on PS5 and Xbox Series X|S on November 19, 2026. Before any emulator can try it, someone has to copy the game off a PS5, and that's blocked for now: GTA 6 needs firmware 14.23, and there's no public way to copy games off a PS5 on that firmware. Even then, no PS5 emulator runs a game this size yet. The <a href="#gta6">GTA 6 readiness score</a> above tracks each step@if (hasGamePages()) {, and <a href="gta-6/">GTA 6 on PC</a> has the full answer}.</p>
+        <summary>Can I play GTA 6 on PC?</summary>
+        <p>@if (gtaDays()) {Not yet, and not at launch. GTA 6 comes out} @else {Not yet. GTA 6 came out} on PS5 and Xbox Series X|S on November 19, 2026, with no PC version. The one way to play it on a PC is <a href="#faq-gta6-stream">Remote Play from your own console</a>. Before a PS5 emulator can try it, someone has to copy the game off a PS5, and that's blocked for now: GTA 6 needs firmware 14.23, and there's no public way to copy games off a PS5 on that firmware. Even then, no PS5 emulator runs a game this size yet. The <a href="#gta6">GTA 6 readiness score</a> above tracks each step@if (hasGamePages()) {, and <a href="gta-6/">GTA 6 on PC</a> has the full answer}.</p>
       </details>
       <details id="faq-gta6-firmware">
         <summary>Does GTA 6 need PS5 firmware 14.23?</summary>
