@@ -29,6 +29,7 @@ export interface RouteData {
   updated: string;
   routes?: Route[];
   players?: Player[];
+  timeline?: { date: string; text: string; source?: Source }[];
 }
 
 /** Stage classes from the readiness table, so a route's status reads like an emulator's. */
@@ -93,6 +94,27 @@ const safe = (url?: string): string | null => (url && url.startsWith('https://')
           </div>
         </section>
       }
+
+      @if (d.timeline?.length) {
+        <section class="sec" id="gta6-timeline" aria-labelledby="gta6-timeline-h">
+          <div class="sec-head">
+            <h2 id="gta6-timeline-h">How we got here</h2>
+            <p class="note">The events that shaped every route to GTA 6 on PC, newest first. Each links its source.</p>
+          </div>
+          <ol class="timeline" role="list">
+            @for (t of d.timeline; track t.date + t.text) {
+              <li>
+                <time [attr.datetime]="t.date">{{ longDate(t.date) }}</time>
+                <p>{{ t.text }}
+                  @if (safe(t.source?.url); as url) {
+                    <a class="with-icon route-src" [href]="url" target="_blank" rel="noopener">{{ t.source!.name }}<app-icon name="external" [size]="12" /></a>
+                  }
+                </p>
+              </li>
+            }
+          </ol>
+        </section>
+      }
     }
   `,
 })
@@ -107,8 +129,10 @@ export class GtaRoutes {
     const icons: Record<string, IconName> = {
       'Emulator developers': 'cpu',
       'PS5 hackers (the copy problem)': 'alert',
+      'Xbox hackers': 'monitor',
       'Fan porters and PC tools': 'gamepad',
       'Rockstar, Sony and Microsoft': 'globe',
+      'Scams to avoid': 'ban',
     };
     const out: { name: string; icon: IconName; players: Player[] }[] = [];
     for (const p of this.data()?.players ?? []) {

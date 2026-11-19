@@ -1,5 +1,5 @@
 {
-  "_help": "Edited by hand when news breaks; the collector never touches it. 'copyable' turns true once there's a public way to copy (dump) GTA 6 off a PS5, which emulators need before anyone can test it. 'routes' lists every way to get GTA 6 onto a PC and 'players' the people and groups working on each; status is works, partial or blocked. Keep every claim sourced, say 'reported' for anything Rockstar or Sony hasn't confirmed, and never link to exploits, payloads, jailbreak tools or game files: cite news coverage instead.",
+  "_help": "Edited by hand when news breaks; the collector never touches it. 'copyable' turns true once there's a public way to copy (dump) GTA 6 off a PS5, which emulators need before anyone can test it. 'routes' lists every way to get GTA 6 onto a PC (status: works, partial or blocked), 'players' the people and groups involved, and 'timeline' the dated events that got here, newest first. Keep every claim sourced, say 'reported' for anything Rockstar or Sony hasn't confirmed, and never link to exploits, payloads, jailbreak tools or game files: cite news coverage instead.",
   "updated": "2026-11-19",
   "copyable": false,
   "copy_blocker": "GTA 6 needs PS5 firmware 14.23, which Sony released on November 17, and there's no public way to copy games off a PS5 on any 14.xx firmware: public exploits stop at 13.60. Days before launch the PS5 hacker Gezine said he had dumped an unnamed game on 14.22, one version older, but he hasn't shown proof or shared how.",
@@ -8,7 +8,11 @@
   "sources": [
     { "name": "TweakTown: Sony confirms firmware 14.23 is required for GTA 6", "url": "https://www.tweaktown.com/news/114767/gamers-cant-play-gta-6-on-ps5-without-updating-system-firmware-sony-and-rockstar-confirm/index.html" },
     { "name": "TweakTown: Gezine claims a game dump on firmware 14.22", "url": "https://www.tweaktown.com/news/114717/ps5-hacker-gezine-claims-to-have-dumped-a-game-on-firmware-14-22-the-same-update-gta-vi-reportedly-requires/index.html" },
-    { "name": "TweakTown: GTA VI PC port reported for January to March 2027", "url": "https://www.tweaktown.com/news/114065/report-gta-vi-pc-port-coming-jan-mar-2027/index.html" },
+    { "name": "XDA: Sony's latest update likely blocks the 14.22 method", "url": "https://www.xda-developers.com/security-researcher-claims-dumped-game-binary-gta-6-required-firmware-latest-update-blocks-exploit/" },
+    { "name": "Gameranx: Echo Stretch says GTA 6 won't be dumped on 14.xx", "url": "https://gameranx.com/updates/id/564514/article/hacker-confirms-gta-6-wont-be-dumped-on-ps5s-latest-firmware/" },
+    { "name": "TweakTown: GTA V's PS5 version runs at 60 fps on PC with an RX 6750 XT", "url": "https://www.tweaktown.com/news/114728/gta-5s-ps5-version-now-runs-at-60fps-on-pc-with-a-mid-range-radeon-rx-6750-xt/index.html" },
+    { "name": "Sportskeeda: GamesBeat reports a GTA 6 PC release in early 2027", "url": "https://www.sportskeeda.com/gta/news-gta-6-pc-release-reportedly-revealed-when-can-expect-pc-port" },
+    { "name": "Shacknews: Xbox clarifies GTA 6 won't stream on PC", "url": "https://www.shacknews.com/article/150935/xbox-clarifies-that-cloud-gaming-will-not-allow-gta-6-to-be-streamed-on-pc" },
     { "name": "Undocumented Behavior: The Final Boss of PC Ports (video)", "url": "https://www.youtube.com/watch?v=eISnF1-bT1Y" }
   ],
   "routes": [
@@ -16,14 +20,14 @@
       "title": "Remote Play from your own console",
       "status": "works",
       "label": "Works today",
-      "text": "Rockstar says GTA 6 fully supports Remote Play. With your own PS5 or Xbox Series X|S and a copy of the game, Sony's PS Remote Play app, the Xbox app or the open-source chiaki-ng client streams it to a Windows PC. The game still runs on the console, at its 30 fps.",
-      "source": { "name": "SVG: GTA 6 Remote Play explained", "url": "https://www.svg.com/2315770/gta-6-remote-play-explained-playstation-xbox-support/" }
+      "text": "Rockstar says GTA 6 \"will also fully support Remote Play on PlayStation and Xbox\". With your own PS5 or Xbox Series X|S and a copy of the game, Sony's PS Remote Play app, the Xbox app or the open-source chiaki-ng client streams it to a Windows PC. The game still runs on the console, at its 30 fps, with some added input delay from the stream.",
+      "source": { "name": "GamingBolt: GTA 6 supports Xbox Cloud Gaming and Remote Play", "url": "https://gamingbolt.com/gta-6-supports-xbox-cloud-gaming-including-on-xbox-one-and-remote-play" }
     },
     {
       "title": "Remote Play with frame generation",
       "status": "partial",
       "label": "Works, with lag",
-      "text": "SmoovPlay, a free open-source PC app built on chiaki-ng, adds AI-generated frames to the Remote Play stream on your graphics card, turning 30 fps into 60 to 120. It adds roughly 20 to 36 ms of delay, and the game still responds like 30 fps. Its GTA 6 demo used trailer footage, not the game running on a PS5.",
+      "text": "Two free PC tools add AI-generated frames on your graphics card. SmoovPlay, built on chiaki-ng, turns a 30 fps Remote Play stream into 60 to 120 fps for roughly 20 to 36 ms of extra delay; Veyra does the same to a capture-card or Remote Play feed and adds upscaling. The game still responds like 30 fps, and both GTA 6 demos so far used Rockstar's trailer, not the game running on a console.",
       "source": { "name": "TweakTown: SmoovPlay turns 30 fps console streams into 120 fps", "url": "https://www.tweaktown.com/news/114743/open-source-tool-promises-to-turn-gta-vis-30-fps-console-gameplay-into-120-fps-using-ai-frame-generation/index.html" }
     },
     {
@@ -37,61 +41,85 @@
       "title": "An official PC version",
       "status": "blocked",
       "label": "Not announced",
-      "text": "Rockstar hadn't announced one by launch day, and Take-Two's CEO, Strauss Zelnick, says that news will come from Rockstar. GamesBeat reported on October 13 that a PC version is planned for early 2027, citing four industry sources. GTA V took about 19 months to reach PC.",
+      "text": "Rockstar hadn't announced one by launch day, and Take-Two's CEO, Strauss Zelnick, says that news will come from Rockstar. GamesBeat reported on October 13 that a PC version is planned for early 2027, citing four industry sources. GTA V took about 19 months to reach PC, and Red Dead Redemption 2 about a year. Tech analysts expect even a PC version to need a top-end processor for 60 fps.",
       "source": { "name": "Insider Gaming: GTA 6 PC news will come from Rockstar, says Take-Two", "url": "https://insider-gaming.com/gta-6-disc-and-pc-version-update-come-rockstar-take-two/" }
     },
     {
       "title": "PS5 emulation",
       "status": "blocked",
       "label": "Needs a copy first",
-      "text": "AnyPS5, KytyPS5 and SharpEmu can only test games copied (dumped) off a PS5, and nobody can copy GTA 6 yet: it needs firmware 14.23, and public exploits stop at 13.60. GTA V's PS5 version, on the same RAGE engine, already gets in-game on KytyPS5 and SharpEmu, and AnyPS5's testers report playing its opening mission.",
-      "source": { "name": "AnyPS5 on GitHub: Grand Theft Auto V test thread", "url": "https://github.com/boykopovar/AnyPS5/discussions/1203" }
+      "text": "AnyPS5, KytyPS5 and SharpEmu can only test games copied (dumped) off a PS5, and nobody can copy GTA 6 yet: it needs firmware 14.23, and public exploits stop at 13.60. GTA V's PS5 version, on the same RAGE engine, shows how close the tools are: on November 17 a tester combining AnyPS5 with KytyPS5's graphics code drove around Los Santos at a locked 60 fps on a mid-range PC, with graphics bugs.",
+      "source": { "name": "TweakTown: GTA V's PS5 version runs at 60 fps on PC with an RX 6750 XT", "url": "https://www.tweaktown.com/news/114728/gta-5s-ps5-version-now-runs-at-60fps-on-pc-with-a-mid-range-radeon-rx-6750-xt/index.html" }
     },
     {
       "title": "A fan-made native port",
       "status": "blocked",
       "label": "Needs a copy first",
-      "text": "Since October, fans have rebuilt PlayStation games such as Bloodborne and Astro Bot to run natively on PC, each starting from a copy dumped off a console. GTA 6 would need the same dump. Take-Two has also fought fan rebuilds before: it had re3 and reVC, rebuilds of GTA III and Vice City, taken down in 2021 and sued their makers.",
-      "source": { "name": "XDA: Fan-made decompilation ports", "url": "https://www.xda-developers.com/fan-made-decompilation-ports-are-remastering-games-better-than-studios/" }
+      "text": "Since October, fans have rebuilt PlayStation games to run natively on PC: Bloodborne on October 1, then on November 13 Astro Bot, the first PS5 exclusive, built on AnyPS5 and KytyPS5. Each needs a copy dumped off the player's own console, so GTA 6 would need the same dump. Take-Two has also fought fan rebuilds before: it had re3 and reVC, rebuilds of GTA III and Vice City, taken down in 2021 and sued their makers.",
+      "source": { "name": "TweakTown: Astro Bot gets an unofficial native PC port", "url": "https://www.tweaktown.com/news/114679/astro-bot-becomes-the-first-ps5-exclusive-to-get-an-unofficial-native-pc-port-with-dlss-pushing-it-past-120-fps/index.html" }
     },
     {
       "title": "Xbox emulation",
       "status": "blocked",
       "label": "No emulator exists",
-      "text": "No emulator runs Xbox Series X|S or Xbox One games on PC. Microsoft's own PC backward compatibility, launched in 2026, covers only original Xbox and Xbox 360 games.",
-      "source": { "name": "Android Authority: Microsoft launches Xbox backward compatibility on PC", "url": "https://www.androidauthority.com/microsoft-launches-xbox-backward-compatibility-on-pc-3690336/" }
+      "text": "No emulator runs Xbox Series X|S or Xbox One games on PC, and no public jailbreak exists for the Series X|S, so there's no way to copy GTA 6 off an Xbox either. Microsoft's own PC backward compatibility covers only original Xbox and Xbox 360 games. A widely shared claim that GTA 6 is built on Microsoft's PC-like GDK toolkit is unverified.",
+      "source": { "name": "What is true about Xbox hacking in 2026", "url": "https://pasqualepillitteri.it/en/news/30242/xbox-hacked-2026-what-is-true" }
     }
   ],
   "players": [
     {
       "group": "Emulator developers",
-      "name": "AnyPS5 and its GTA V testers",
-      "text": "AnyPS5, started by boykopovar in August 2026, relinks PS5 games to run on the PC's own processor. Its compatibility list has GTA V at the menus, but testers in its GTA V thread report more: MichonGoddijn231849 played the North Yankton prologue at 27 to 28 fps on a test branch, mrfelek reached the bank scene on the main build on Linux on November 14, and LeonardoS11 measured 16.3 fps there on Windows on November 16. simnJS's AnyKyty branch pairs it with KytyPS5's graphics code.",
+      "name": "AnyPS5 (boykopovar)",
+      "text": "Started in August 2026 by boykopovar, now the most-starred of the three, with more than 57,000 GitHub stars. Rather than emulating, it relinks a PS5 game into a native Windows or Linux program. Its biggest code contributors are oneandonlydean, adriadam10 and MarcZX10.",
+      "url": "https://github.com/boykopovar/AnyPS5"
+    },
+    {
+      "group": "Emulator developers",
+      "name": "AnyPS5's GTA V testers",
+      "text": "Its compatibility list has GTA V at the menus, but testers in its GTA V thread report more: MichonGoddijn231849 played the North Yankton prologue at 27 to 28 fps on a test branch, mrfelek reached the bank scene on the main build on Linux on November 14, LeonardoS11 measured 16.3 fps there on Windows on November 16, and simnJS's AnyKyty branch pairs it with KytyPS5's graphics code.",
       "url": "https://github.com/boykopovar/AnyPS5/discussions/1203"
     },
     {
       "group": "Emulator developers",
-      "name": "KytyPS5",
-      "text": "A PS5 translation layer built on Kyty, an emulator last developed in 2022. It gets the most games in-game, 310 on its list, GTA V among them. Contributors such as TheCruZ are working on a crash in GTA V's prologue.",
-      "url": "https://github.com/KytyPS5/KytyPS5/issues/829"
+      "name": "chasm",
+      "text": "On November 17 posted more than seven minutes of GTA V's PS5 version driving around Los Santos at a locked 60 fps on a Radeon RX 6750 XT, using AnyPS5 with KytyPS5's graphics code loaded as a DLL. A personal experiment, with graphics bugs.",
+      "url": "https://www.tweaktown.com/news/114728/gta-5s-ps5-version-now-runs-at-60fps-on-pc-with-a-mid-range-radeon-rx-6750-xt/index.html"
     },
     {
       "group": "Emulator developers",
-      "name": "SharpEmu",
-      "text": "An experimental PS5 emulator, run by its community since July 15, 2026, with the most games marked fully playable: 47. GTA V's PS5 version gets in-game.",
+      "name": "KytyPS5 (Nmzik)",
+      "text": "Nmzik revived Kyty, a 2022 emulator by InoriRus, as a PS5-only translation layer in June 2026 and has written almost all of its code since. It gets the most games in-game, 310 on its list. It reached GTA V's menus in July and its prologue at 40 to 60 fps in September, though crashes still stop a full playthrough; TheCruZ is among those chasing the crash.",
+      "url": "https://github.com/KytyPS5/KytyPS5"
+    },
+    {
+      "group": "Emulator developers",
+      "name": "SharpEmu (par274)",
+      "text": "An experimental PS5 emulator written in C#, started in March 2026 by par274, who still writes most of it. It has the most games marked fully playable, 47, and GTA V's PS5 version gets in-game.",
       "url": "https://github.com/sharpemu/sharpemu"
     },
     {
       "group": "PS5 hackers (the copy problem)",
       "name": "Gezine",
-      "text": "A leading PS5 jailbreak developer. Reported a kernel exploit for firmware 14.10 in October, and on November 16 said he had dumped an unnamed game on 14.22. He hasn't shown proof or shared how, and Sony shipped 14.23 the next day.",
-      "url": "https://www.tweaktown.com/news/114717/ps5-hacker-gezine-claims-to-have-dumped-a-game-on-firmware-14-22-the-same-update-gta-vi-reportedly-requires/index.html"
+      "text": "The jailbreak developer closest to GTA 6's firmware. Showed a PS5 on firmware 14.10 jailbroken on October 19 but kept it private, then on November 16 said he had dumped an unnamed game on 14.22. He showed no proof and shared no method, Sony shipped 14.23 the next day, and XDA reports the post was deleted.",
+      "url": "https://www.xda-developers.com/security-researcher-claims-dumped-game-binary-gta-6-required-firmware-latest-update-blocks-exploit/"
     },
     {
       "group": "PS5 hackers (the copy problem)",
       "name": "Echo Stretch",
-      "text": "Replied to Gezine that the 14.22 dump needed no hypervisor exploit, the protection the scene thought still stood in the way. Unconfirmed, and other reports read Gezine's post differently.",
-      "url": "https://www.talkesport.com/news/gaming/gezine-ps5-firmware-14-22-game-dump-gta-6/"
+      "text": "A jailbreak developer and YouTuber. On November 13 he said things \"aren't looking good\" for dumping games on 14.xx firmware and that he would buy GTA 6 himself. After Gezine's claim he replied that the dump needed no hypervisor exploit, which other reports read differently.",
+      "url": "https://gameranx.com/updates/id/564514/article/hacker-confirms-gta-6-wont-be-dumped-on-ps5s-latest-firmware/"
+    },
+    {
+      "group": "PS5 hackers (the copy problem)",
+      "name": "TheFloW (Andy Nguyen)",
+      "text": "The best-known PS5 hacker and creator of PS5 Linux. In September he quit the PS5 scene after a hypervisor bug he had been keeping private was reported to Sony.",
+      "url": "https://itsfoss.com/news/ps5-linux-lead-quits/"
+    },
+    {
+      "group": "PS5 hackers (the copy problem)",
+      "name": "Jordy (couldbeautism)",
+      "text": "Reported that hypervisor bug to Sony through its HackerOne bug bounty in September, reportedly for $50,000, saying a third person had found it with AI anyway. The scene split over whether reporting it was right.",
+      "url": "https://tomshardware.com/video-games/playstation/hacker-awarded-usd50k-bounty-for-reporting-bug-to-sony-that-allowed-ps5-linux-exploit-move-sparks-backlash-from-jailbreaking-community"
     },
     {
       "group": "PS5 hackers (the copy problem)",
@@ -106,6 +134,24 @@
       "url": "https://wccftech.com/byepervisor-reborn-cracks-ps5-hypervisor-13-60-not-useful-regular-users-yet/"
     },
     {
+      "group": "PS5 hackers (the copy problem)",
+      "name": "FULU Foundation (Louis Rossmann)",
+      "text": "The right-to-repair nonprofit co-founded by Louis Rossmann put up a $10,000 bounty for bypassing the PS5 hypervisor on current firmware; donations took the pot past $16,000 by July. It's unclaimed.",
+      "url": "https://www.gadgetreview.com/louis-rossmanns-fulu-foundation-just-put-up-a-10000-bounty-to-crack-the-playstation-5s-hypervisor-on-current-firmware"
+    },
+    {
+      "group": "Xbox hackers",
+      "name": "Markus \"Doom\" Gaasedelen (Bliss)",
+      "text": "Showed Bliss in March 2026, a hardware attack on the original Xbox One that glitches its power at boot to run unsigned code. It needs the physical console and specialist tools, there's no consumer version, and it doesn't touch the Xbox Series X|S that GTA 6 runs on.",
+      "url": "https://pasqualepillitteri.it/en/news/30242/xbox-hacked-2026-what-is-true"
+    },
+    {
+      "group": "Xbox hackers",
+      "name": "Emma Kirkpatrick and Lander Brandt (Collateral Damage)",
+      "text": "Their 2024 exploit takes over the app layer of Xbox Series X|S and Xbox One consoles on some system versions. Its authors say it isn't a jailbreak and can't run pirated or copied games.",
+      "url": "https://pasqualepillitteri.it/en/news/30242/xbox-hacked-2026-what-is-true"
+    },
+    {
       "group": "Fan porters and PC tools",
       "name": "deadinside28 (bbport)",
       "text": "Released bbport on October 1, a native PC port of Bloodborne that started the wave of fan-rebuilt PlayStation games. Players need their own dumped copy.",
@@ -113,9 +159,9 @@
     },
     {
       "group": "Fan porters and PC tools",
-      "name": "The Astro Bot port",
-      "text": "On November 13 a fan port of Astro Bot became the first PS5 game with a native PC build, showing the route works for PS5 games that can be dumped.",
-      "url": "https://playported.com/consoles/playstation-5/"
+      "name": "AstroHybrid (the Astro Bot port)",
+      "text": "On November 13 became the first PS5 exclusive with a native PC build, relinked by AnyPS5 with KytyPS5's graphics layer and adding DLSS and frame generation. It needs the player's own dump of version 01.019.000, and it's still CPU-limited.",
+      "url": "https://www.tweaktown.com/news/114679/astro-bot-becomes-the-first-ps5-exclusive-to-get-an-unofficial-native-pc-port-with-dlss-pushing-it-past-120-fps/index.html"
     },
     {
       "group": "Fan porters and PC tools",
@@ -130,15 +176,21 @@
       "url": "https://github.com/smoovplay/smoovplay"
     },
     {
+      "group": "Fan porters and PC tools",
+      "name": "Veyra",
+      "text": "A Windows video-enhancement tool that applies upscaling and frame generation to a capture-card or Remote Play feed. A Redditor's GTA 6 trailer test took it from 30 to 90 fps, with visible glitches on characters and lighting.",
+      "url": "https://techradar.com/computing/gpu/want-to-play-gta-6-with-dlss-5-at-launch-its-possible-to-pipe-your-console-through-a-gaming-pc-to-do-this-and-weve-just-caught-a-glimpse-of-what-itd-look-like"
+    },
+    {
       "group": "Rockstar, Sony and Microsoft",
       "name": "Rockstar Games and Take-Two",
-      "text": "No PC version announced. Take-Two's CEO says that news will come from Rockstar; GamesBeat's sources point to early 2027.",
+      "text": "Launched GTA 6 on November 19 on PS5 and Xbox Series X|S, at 30 fps on every console, PS5 Pro included. No PC version announced; Take-Two's CEO says that news will come from Rockstar, and GamesBeat's sources point to early 2027.",
       "url": "https://insider-gaming.com/gta-6-disc-and-pc-version-update-come-rockstar-take-two/"
     },
     {
       "group": "Rockstar, Sony and Microsoft",
       "name": "Sony",
-      "text": "Shipped two security updates in the run-up to launch, 14.22 on November 2 and 14.23 on November 17, and made 14.23 a requirement for GTA 6. Its notes list only security fixes.",
+      "text": "Has tightened the PS5 since the jailbreak wave: from mid-October jailbroken consoles reportedly needed firmware 14.10 to use PSN, an unofficial store selling pirated games shut down after Sony reportedly sent a cease-and-desist, and two security updates followed, 14.22 on November 2 and 14.23 on November 17, which GTA 6 requires.",
       "url": "https://www.tweaktown.com/news/114767/gamers-cant-play-gta-6-on-ps5-without-updating-system-firmware-sony-and-rockstar-confirm/index.html"
     },
     {
@@ -146,6 +198,100 @@
       "name": "Microsoft (Xbox)",
       "text": "Streams GTA 6 through Xbox Cloud Gaming to Xbox consoles only. Xbox's Matthew Ball said it won't stream to PC.",
       "url": "https://www.shacknews.com/article/150935/xbox-clarifies-that-cloud-gaming-will-not-allow-gta-6-to-be-streamed-on-pc"
+    },
+    {
+      "group": "Scams to avoid",
+      "name": "Fake GTA 6 PC downloads",
+      "text": "There is no PC version, so every \"GTA 6 for PC\" download is fake. ESET found them spreading the Vidar password stealer, and Cynet traced one to WARDEN, which steals browser passwords, Steam logins and crypto wallets.",
+      "url": "https://www.helpnetsecurity.com/2026/11/13/fake-gta-6-download-scam/"
+    },
+    {
+      "group": "Scams to avoid",
+      "name": "Fake emulator pages",
+      "text": "Look-alike GitHub pages for AnyPS5 and KytyPS5, and invented \"emulators\" such as PCSX5, push password-stealing malware. The real emulators are free, open source and download from their own GitHub projects.",
+      "url": "https://www.tweaktown.com/news/114386/fake-anyps5-and-kytyps5-repositories-on-github-are-spreading-password-stealing-malware/index.html"
+    }
+  ],
+  "timeline": [
+    {
+      "date": "2026-11-19",
+      "text": "GTA 6 launches on PS5 and Xbox Series X|S, at 30 fps on every console. There's no PC version, and the PS5 version requires firmware 14.23.",
+      "source": { "name": "Engadget: GTA VI launch-day live blog", "url": "https://www.engadget.com/2320788/gta-vi-launch-day-live-blog/" }
+    },
+    {
+      "date": "2026-11-17",
+      "text": "Sony releases PS5 firmware 14.23 with only security fixes listed, the day after Gezine's dump claim. The same day, a tester shows GTA V's PS5 version at a locked 60 fps on PC through AnyPS5 and KytyPS5's graphics code.",
+      "source": { "name": "TweakTown: GTA V's PS5 version runs at 60 fps on PC with an RX 6750 XT", "url": "https://www.tweaktown.com/news/114728/gta-5s-ps5-version-now-runs-at-60fps-on-pc-with-a-mid-range-radeon-rx-6750-xt/index.html" }
+    },
+    {
+      "date": "2026-11-16",
+      "text": "Gezine says he has dumped an unnamed game on firmware 14.22, the version GTA 6 then required. He shows no proof and shares no method.",
+      "source": { "name": "TweakTown: Gezine claims a game dump on firmware 14.22", "url": "https://www.tweaktown.com/news/114717/ps5-hacker-gezine-claims-to-have-dumped-a-game-on-firmware-14-22-the-same-update-gta-vi-reportedly-requires/index.html" }
+    },
+    {
+      "date": "2026-11-13",
+      "text": "Astro Bot becomes the first PS5 exclusive with a native fan-made PC port. The same day Echo Stretch tells fans not to expect GTA 6 to be dumped on 14.xx firmware.",
+      "source": { "name": "TweakTown: Astro Bot gets an unofficial native PC port", "url": "https://www.tweaktown.com/news/114679/astro-bot-becomes-the-first-ps5-exclusive-to-get-an-unofficial-native-pc-port-with-dlss-pushing-it-past-120-fps/index.html" }
+    },
+    {
+      "date": "2026-11-10",
+      "text": "Rockstar confirms 30 fps on every console, full Remote Play support and Xbox Cloud Gaming for Xbox consoles. Xbox says it won't stream to PC.",
+      "source": { "name": "GamingBolt: GTA 6 supports Xbox Cloud Gaming and Remote Play", "url": "https://gamingbolt.com/gta-6-supports-xbox-cloud-gaming-including-on-xbox-one-and-remote-play" }
+    },
+    {
+      "date": "2026-11-02",
+      "text": "Sony releases PS5 firmware 14.22, a security update; GTA 6's pre-load is later found to require it.",
+      "source": { "name": "TweakTown: Sony confirms firmware 14.23 is required for GTA 6", "url": "https://www.tweaktown.com/news/114767/gamers-cant-play-gta-6-on-ps5-without-updating-system-firmware-sony-and-rockstar-confirm/index.html" }
+    },
+    {
+      "date": "2026-10-19",
+      "text": "Gezine shows a PS5 on firmware 14.10 jailbroken, but keeps the exploit private.",
+      "source": { "name": "Notebookcheck: PS5 jailbreak on firmware 14.10 shown", "url": "https://notebookcheck.net/PS5-console-jailbreak-on-latest-14-10-firmware-shared-before-GTA-6-release-date.1428405.0.html" }
+    },
+    {
+      "date": "2026-10-13",
+      "text": "GamesBeat reports a GTA 6 PC version for early 2027, citing four industry sources.",
+      "source": { "name": "Sportskeeda: GamesBeat reports a GTA 6 PC release in early 2027", "url": "https://www.sportskeeda.com/gta/news-gta-6-pc-release-reportedly-revealed-when-can-expect-pc-port" }
+    },
+    {
+      "date": "2026-10-12",
+      "text": "PS5Dev releases Byepervisor-Reborn, a hypervisor exploit for firmware 13.20 and 13.60.",
+      "source": { "name": "Wccftech: Byepervisor-Reborn", "url": "https://wccftech.com/byepervisor-reborn-cracks-ps5-hypervisor-13-60-not-useful-regular-users-yet/" }
+    },
+    {
+      "date": "2026-10-01",
+      "text": "bbport, a native fan port of Bloodborne, starts the wave of PlayStation games rebuilt to run on PC.",
+      "source": { "name": "ScreenRant: bbport, the native Bloodborne PC port", "url": "https://screenrant.com/bloodborne-pc-native-port-download-fan-made/" }
+    },
+    {
+      "date": "2026-09-29",
+      "text": "Relapse, a jailbreak for PS5 firmware 7.00 to 13.60, goes public.",
+      "source": { "name": "Relapse jailbreak coverage", "url": "https://pasqualepillitteri.it/en/news/19414/playstation-5-relapse-jailbreak" }
+    },
+    {
+      "date": "2026-09-17",
+      "text": "TheFloW quits the PS5 scene after a hypervisor bug he was keeping private is reported to Sony for a reported $50,000 bounty.",
+      "source": { "name": "It's FOSS: PS5 Linux lead quits after a hypervisor bug is reported to Sony", "url": "https://itsfoss.com/news/ps5-linux-lead-quits/" }
+    },
+    {
+      "date": "2026-08-03",
+      "text": "boykopovar starts AnyPS5, which relinks PS5 games into native PC programs instead of emulating them.",
+      "source": { "name": "AnyPS5 on GitHub", "url": "https://github.com/boykopovar/AnyPS5" }
+    },
+    {
+      "date": "2026-07-15",
+      "text": "KytyPS5 reaches GTA V's menus, the first sign a PS5 emulator could handle Rockstar's RAGE engine.",
+      "source": { "name": "Notebookcheck: PS5 emulator finally boots GTA V's menus", "url": "https://www.notebookcheck.net/PS5-emulator-finally-boots-GTA-V-s-menus.1342432.0.html" }
+    },
+    {
+      "date": "2026-07-01",
+      "text": "Sony announces it will stop making discs for new PlayStation games from January 2028, and interest in PS5 emulation and jailbreaks jumps.",
+      "source": { "name": "TechCrunch: Sony to end physical PlayStation game discs in 2028", "url": "https://techcrunch.com/2026/07/01/sony-to-end-physical-playstation-game-discs-in-2028/" }
+    },
+    {
+      "date": "2026-06-09",
+      "text": "Nmzik starts KytyPS5, reviving the 2022 Kyty emulator as a PS5 translation layer.",
+      "source": { "name": "KytyPS5 on GitHub", "url": "https://github.com/KytyPS5/KytyPS5" }
     }
   ]
 }

@@ -456,6 +456,12 @@ h3 > .icon { color: var(--muted); }
 .players dt { font-weight: 650; margin-top: 10px; }
 .players dt:first-child { margin-top: 0; }
 .players dd { margin: 0; color: var(--muted); }
+.timeline { list-style: none; margin: 0; padding: 0; max-width: 62rem; border-left: 2px solid var(--line); }
+.timeline li { position: relative; padding: 0 0 18px 20px; display: grid; gap: 2px; }
+.timeline li::before { content: ''; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; background: var(--panel); border: 2px solid var(--accent-ui); }
+.timeline time { font-weight: 650; font-stretch: 106%; }
+.timeline p { margin: 0; }
+.timeline .route-src { display: inline-flex; margin-left: 4px; }
 .gta-list li { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; font-size: var(--t-body); padding: 7px 0; border-bottom: 1px solid var(--line); }
 .gta-list li .icon { color: var(--muted); }
 .gta-list li.done .icon { color: var(--ok); }

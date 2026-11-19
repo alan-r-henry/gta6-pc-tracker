@@ -111,6 +111,12 @@ def gta_routes_html(status):
                         '<p>The projects, people and companies that decide when GTA 6 runs on a PC. Hacker entries cite '
                         'news coverage; this site never links to exploits, jailbreak tools or game files.</p>'
                         f'{"".join(parts)}</section>')
+    timeline = [t for t in status.get("timeline") or [] if isinstance(t, dict) and t.get("date") and t.get("text")]
+    if timeline:
+        lis = "".join(f'<li><b>{e(long_date(t["date"]))}</b>: {e(t["text"])}'
+                      + (f' Source: {link((t.get("source") or {}).get("url"), (t.get("source") or {}).get("name", ""))}.' if (t.get("source") or {}).get("name") else '')
+                      + '</li>' for t in timeline)
+        players_html += f'<section class="gp-text"><h2>How we got here</h2><p>The events that shaped every route to GTA 6 on PC, newest first.</p><ul>{lis}</ul></section>'
     return routes_html, players_html
 
 def faq_text(answer, today):
