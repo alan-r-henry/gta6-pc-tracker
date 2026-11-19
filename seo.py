@@ -26,20 +26,22 @@ TOP_TIER = {"AnyPS5": "playable", "KytyPS5": "in-game", "SharpEmu": "playable"}
 STAGE = {"none": "not tested", "boots": "boots", "menus": "reaches the menus", "ingame": "gets in-game",
          "playable": "is playable"}
 STAGE_RANK = ["none", "boots", "menus", "ingame", "playable"]
-GTA_QUESTIONS = 4  # the first entries of FAQ, repeated on the gta-6/ page
+GTA_QUESTIONS = 5  # the first entries of FAQ, repeated on the gta-6/ page
 FAQ = [
     ("Can I play GTA 6 on PC with a PS5 emulator?",
      "{gta6_lead} GTA 6 {gta6_verb} on PS5 and Xbox Series X|S on November 19, 2026. Before any "
-     "emulator can try it, someone has to copy the game off a PS5, and that's blocked for now: GTA 6 reportedly "
-     "needs firmware 14.10, and there's no public way to copy games off a PS5 on that firmware. Even then, no PS5 "
+     "emulator can try it, someone has to copy the game off a PS5, and that's blocked for now: GTA 6 "
+     "needs firmware 14.23, and there's no public way to copy games off a PS5 on that firmware. Even then, no PS5 "
      "emulator runs a game this size yet. The GTA 6 readiness score tracks each step."),
-    ("Does GTA 6 need PS5 firmware 14.10?",
-     "Reportedly. A datamine of GTA 6's PlayStation Store listing says it needs firmware 14.10 or newer; Rockstar "
-     "and Sony haven't confirmed it. Public PS5 jailbreaks only work up to firmware 13.60, so a jailbroken console "
+    ("Does GTA 6 need PS5 firmware 14.23?",
+     "Yes. Sony says GTA 6 needs PS5 system software 14.23 (26.07-14.23.00), released on November 17, "
+     "2026; the pre-load package had listed 14.22. Public PS5 jailbreaks only work up to firmware 13.60, so a jailbroken console "
      "would have to update, and lose its jailbreak, to play it."),
+    ("Can I stream GTA 6 to a PC?",
+     "Yes, from your own console. Rockstar says GTA 6 fully supports Remote Play, so a PS5 or Xbox Series X|S with the game can stream it to a Windows PC through Sony's PS Remote Play app, the Xbox app or the open-source chiaki-ng client. It still runs at the console's 30 fps; free tools such as SmoovPlay add AI-generated frames for 60 fps or more, at the cost of extra input delay. Cloud streaming doesn't help: Xbox Cloud Gaming offers GTA 6 on Xbox consoles only, and it isn't on GeForce Now or PlayStation Plus cloud streaming."),
     ("When is GTA 6 coming to PC?",
      "Rockstar hasn't announced a PC version. GamesBeat reported on October 13, 2026 that one is planned for early "
-     "2027, citing four industry sources. GTA V took about 18 months to reach PC."),
+     "2027, citing four industry sources. GTA V took about 19 months to reach PC."),
     ("Could AI port GTA 6 to PC?",
      "Not soon, and not without a copy of the game. Obbe Vermeij, a former Rockstar North technical director, "
      "told Rock Paper Shotgun in November 2026 that somebody might take the PS5 version and get AI to convert "
@@ -65,13 +67,51 @@ FAQ = [
      "Only a jailbroken one, and that's the reverse of emulation. Since September 2026, hobbyists have ported "
      "Wine, the Windows layer the Steam Deck uses, into a PS5 app and written a Vulkan graphics driver for the "
      "PS5's chip. An open-source launcher called Playden installs games from the owner's own Steam library. Its "
-     "compatibility list showed 143 of 207 tested Windows games working on October 26, 2026. It needs a "
+     "compatibility list showed 522 of 789 tested Windows games working on November 18, 2026. It needs a "
      "jailbroken PS5 on older firmware, it's alpha software, and games with kernel anti-cheat, such as Marvel "
      "Rivals, don't run. It doesn't help run PS5 games on PC, which is what this tracker follows."),
 ]
 
 e = html.escape
 
+
+
+ROUTE_STATUS = {"works": "Works today", "partial": "Works, with limits", "blocked": "Not possible yet"}
+
+
+def gta_routes_html(status):
+    """The hand-kept routes to GTA 6 on PC and the key players, from data/gta_status.json, as two page sections."""
+    def link(url, text):
+        return f'<a href="{e(url)}">{e(text)}</a>' if str(url or "").startswith("https://") else e(text)
+
+    routes = [r for r in status.get("routes") or [] if isinstance(r, dict) and r.get("title") and r.get("text")]
+    routes_html = ""
+    if routes:
+        items = []
+        for r in routes:
+            src = r.get("source") or {}
+            cite = f' Source: {link(src.get("url"), src.get("name", ""))}.' if src.get("name") else ""
+            label = r.get("label") or ROUTE_STATUS.get(r.get("status"), "")
+            items.append(f"<h3>{e(r['title'])}: {e(label)}</h3><p>{e(r['text'])}{cite}</p>")
+        routes_html = (f'<section class="gp-text"><h2>Every route to GTA 6 on PC</h2>'
+                       f'<p>PS5 emulation is one of {len(routes)} ways people are trying to get GTA 6 onto a PC.</p>'
+                       f'{"".join(items)}</section>')
+
+    players = [p for p in status.get("players") or [] if isinstance(p, dict) and p.get("name") and p.get("text")]
+    players_html = ""
+    if players:
+        groups = {}
+        for p in players:
+            groups.setdefault(p.get("group") or "Others", []).append(p)
+        parts = []
+        for name, members in groups.items():
+            lis = "".join(f"<li><b>{link(p.get('url'), p['name'])}</b>: {e(p['text'])}</li>" for p in members)
+            parts.append(f"<h3>{e(name)}</h3><ul>{lis}</ul>")
+        players_html = ('<section class="gp-text"><h2>Who\'s working on it</h2>'
+                        '<p>The projects, people and companies that decide when GTA 6 runs on a PC. Hacker entries cite '
+                        'news coverage; this site never links to exploits, jailbreak tools or game files.</p>'
+                        f'{"".join(parts)}</section>')
+    return routes_html, players_html
 
 def faq_text(answer, today):
     """Fills the FAQ's release-day wording, so it reads right before and after GTA 6 comes out."""
@@ -493,7 +533,7 @@ def page_shell(title, description, url, ld, body, style_link, image=None, robots
 {body}
   </main>
   <footer class="gp-foot">
-    <p>Statuses come from each project's public compatibility list and are checked every 3 hours. Frame rates are what
+    <p>Statuses come from each project's public compatibility list and are checked several times a day. Frame rates are what
     testers reported on their own hardware. Not affiliated with Sony, Rockstar or the emulator projects.</p>
     <ul class="gp-foot-links"><li><a href="{BASE}">PS5 Emulation Tracker</a></li><li><a href="{BASE}games/">All games</a></li><li><a href="{BASE}gta-6/">GTA 6 on PC</a></li><li><a href="{BASE}#method">How this is measured</a></li><li><a href="{BASE}feed.xml">Feed of new playable games</a></li></ul>
   </footer>
@@ -1003,13 +1043,15 @@ def write_gta_page(site, groups, today, style_link):
     sources = "".join(f'<li><a href="{e(src["url"])}">{e(src["name"])}</a></li>' for src in status.get("sources") or []
                       if isinstance(src, dict) and str(src.get("url", "")).startswith("https://") and src.get("name"))
 
+    routes_html, players_html = gta_routes_html(status)
+
     title = "Can you play GTA 6 on PC? PS5 emulator readiness"
     description = (f"{answer} {when} GTA 6 emulation readiness is {score}%, from checkable milestones: whether it can "
                    "be copied off a PS5, then how far each emulator gets.")
     body = f"""    <nav class="gp-crumbs" aria-label="Breadcrumb"><a href="{BASE}">Tracker</a> › <span>GTA 6</span></nav>
     <h1>Can you play GTA 6 on PC?</h1>
     <p class="gp-lead">{e(" ".join(lead))}</p>
-    <p class="gp-about">Updated {e(long_date(today))}. Emulator results update every 3 hours from each project's compatibility list.</p>
+    <p class="gp-about">Updated {e(long_date(today))}. Emulator results update several times a day from each project's compatibility list.</p>
     <section class="gp-text gp-ready">
       <h2>GTA 6 emulation readiness: {score}%</h2>
       <meter class="gp-meter" min="0" max="100" value="{score}" aria-label="GTA 6 emulation readiness">{score}%</meter>
@@ -1029,6 +1071,8 @@ def write_gta_page(site, groups, today, style_link):
         <tbody>{rows}</tbody>
       </table></div>
     </section>
+    {routes_html}
+    {players_html}
     <section class="gp-text">
       <h2>Questions</h2>
       {qa}

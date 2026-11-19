@@ -29,7 +29,7 @@ figures are published as JSON, free to reuse under [CC BY 4.0](https://creativec
 
 ## How it works
 
-- `collect.py` gathers the data in GitHub Actions every 3 hours and saves the history on the `data` branch.
+- `collect.py` gathers the data in GitHub Actions on a 3-hour schedule (GitHub often delays it, so in practice several times a day) and saves the history on the `data` branch.
 - `web/` is the Angular site. `seo.py` runs after the build and writes the crawler-readable summary, a static page
   for every game, the `gta-6/` page and the sitemap.
 - `.github/workflows/deploy.yml` builds and publishes to GitHub Pages. [HOSTING.md](HOSTING.md) covers the setup and

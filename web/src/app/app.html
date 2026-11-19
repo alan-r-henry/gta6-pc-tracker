@@ -116,6 +116,12 @@
     <app-gta [libraries]="anyLib()" [snapshots]="svc.history()?.snapshots ?? []" [hasPage]="hasGamePages()" />
 
     @defer (on viewport) {
+      <app-gta-routes />
+    } @placeholder {
+      <div class="routes-placeholder" id="gta6-routes"></div>
+    }
+
+    @defer (on viewport) {
       <app-fps-demo />
     } @placeholder {
       <div class="fps-placeholder" id="fps"></div>
@@ -344,15 +350,19 @@
       <h2 id="faq-h">Questions</h2>
       <details id="faq-gta6-pc" open>
         <summary>Can I play GTA 6 on PC with a PS5 emulator?</summary>
-        <p>@if (gtaDays()) {Not yet, and not at launch. GTA 6 comes out} @else {Not yet. GTA 6 came out} on PS5 and Xbox Series X|S on November 19, 2026. Before any emulator can try it, someone has to copy the game off a PS5, and that's blocked for now: GTA 6 reportedly needs firmware 14.10, and there's no public way to copy games off a PS5 on that firmware. Even then, no PS5 emulator runs a game this size yet. The <a href="#gta6">GTA 6 readiness score</a> above tracks each step@if (hasGamePages()) {, and <a href="gta-6/">GTA 6 on PC</a> has the full answer}.</p>
+        <p>@if (gtaDays()) {Not yet, and not at launch. GTA 6 comes out} @else {Not yet. GTA 6 came out} on PS5 and Xbox Series X|S on November 19, 2026. Before any emulator can try it, someone has to copy the game off a PS5, and that's blocked for now: GTA 6 needs firmware 14.23, and there's no public way to copy games off a PS5 on that firmware. Even then, no PS5 emulator runs a game this size yet. The <a href="#gta6">GTA 6 readiness score</a> above tracks each step@if (hasGamePages()) {, and <a href="gta-6/">GTA 6 on PC</a> has the full answer}.</p>
       </details>
       <details id="faq-gta6-firmware">
-        <summary>Does GTA 6 need PS5 firmware 14.10?</summary>
-        <p>Reportedly. A datamine of GTA 6's PlayStation Store listing says it needs firmware 14.10 or newer; Rockstar and Sony haven't confirmed it. Public PS5 jailbreaks only work up to firmware 13.60, so a jailbroken console would have to update, and lose its jailbreak, to play it.</p>
+        <summary>Does GTA 6 need PS5 firmware 14.23?</summary>
+        <p>Yes. Sony says GTA 6 needs PS5 system software 14.23 (26.07-14.23.00), released on November 17, 2026; the pre-load package had listed 14.22. Public PS5 jailbreaks only work up to firmware 13.60, so a jailbroken console would have to update, and lose its jailbreak, to play it.</p>
+      </details>
+      <details id="faq-gta6-stream">
+        <summary>Can I stream GTA 6 to a PC?</summary>
+        <p>Yes, from your own console. Rockstar says GTA 6 fully supports Remote Play, so a PS5 or Xbox Series X|S with the game can stream it to a Windows PC through Sony's PS Remote Play app, the Xbox app or the open-source chiaki-ng client. It still runs at the console's 30 fps; free tools such as SmoovPlay add AI-generated frames for 60 fps or more, at the cost of extra input delay. Cloud streaming doesn't help: Xbox Cloud Gaming offers GTA 6 on Xbox consoles only, and it isn't on GeForce Now or PlayStation Plus cloud streaming. <a href="#gta6-routes">Every route to GTA 6 on PC</a> compares the options.</p>
       </details>
       <details id="faq-gta6-pc-release">
         <summary>When is GTA 6 coming to PC?</summary>
-        <p>Rockstar hasn't announced a PC version. GamesBeat reported on October 13, 2026 that one is planned for early 2027, citing four industry sources. GTA V took about 18 months to reach PC.</p>
+        <p>Rockstar hasn't announced a PC version. GamesBeat reported on October 13, 2026 that one is planned for early 2027, citing four industry sources. GTA V took about 19 months to reach PC.</p>
       </details>
       <details id="faq-gta6-ai-port">
         <summary>Could AI port GTA 6 to PC?</summary>
@@ -360,11 +370,11 @@
       </details>
       <details id="faq-gtav">
         <summary>Does GTA V run on PS5 emulators?</summary>
-        <p>The PS5 version of GTA V gets in-game on KytyPS5 and SharpEmu, and reaches the menus on AnyPS5. It uses the same RAGE engine as GTA 6, which makes it the best early sign of how GTA 6 will fare. The table in the GTA 6 section shows the latest result for each emulator.</p>
+        <p>The PS5 version of GTA V gets in-game on KytyPS5 and SharpEmu, and reaches the menus on AnyPS5's compatibility list, though AnyPS5's testers report playing its opening mission at around 16 to 28 fps. It uses the same RAGE engine as GTA 6, which makes it the best early sign of how GTA 6 will fare. The table in the GTA 6 section shows the latest result for each emulator.</p>
       </details>
       <details id="faq-working">
         <summary>Is there a working PS5 emulator?</summary>
-        <p>Yes, in early form. AnyPS5, KytyPS5 and SharpEmu all run some PS5 games on Windows today. About 200 games reach gameplay on at least one of them, out of more than 9,000 PS5 titles; see <a href="#playable">Playable games</a> for the list, with frame rates where testers reported them.</p>
+        <p>Yes, in early form. AnyPS5, KytyPS5 and SharpEmu all run some PS5 games on Windows today. More than 320 games reach gameplay on at least one of them, out of more than 9,000 PS5 titles; see <a href="#playable">Playable games</a> for the list, with frame rates where testers reported them.</p>
       </details>
       <details id="faq-best">
         <summary>Which PS5 emulator is the most advanced?</summary>
@@ -380,11 +390,11 @@
       </details>
       <details id="faq-pc-games-on-ps5">
         <summary>Can a PS5 play PC games?</summary>
-        <p>Only a jailbroken one, and that's the reverse of emulation. Since September 2026, hobbyists have ported Wine, the Windows layer the Steam Deck uses, into a PS5 app and written a Vulkan graphics driver for the PS5's chip. An open-source launcher called Playden installs games from the owner's own Steam library. Its compatibility list showed 143 of 207 tested Windows games working on October 26, 2026. It needs a jailbroken PS5 on older firmware, it's alpha software, and games with kernel anti-cheat, such as Marvel Rivals, don't run. It doesn't help run PS5 games on PC, which is what this tracker follows.</p>
+        <p>Only a jailbroken one, and that's the reverse of emulation. Since September 2026, hobbyists have ported Wine, the Windows layer the Steam Deck uses, into a PS5 app and written a Vulkan graphics driver for the PS5's chip. An open-source launcher called Playden installs games from the owner's own Steam library. Its compatibility list showed 522 of 789 tested Windows games working on November 18, 2026. It needs a jailbroken PS5 on older firmware, it's alpha software, and games with kernel anti-cheat, such as Marvel Rivals, don't run. It doesn't help run PS5 games on PC, which is what this tracker follows.</p>
       </details>
       <details id="faq-updates">
         <summary>How often is this tracker updated?</summary>
-        <p>Live figures load from GitHub and each project's site when you open the page, and every 15 minutes after that. Daily history, game lists and the GTA 6 score update every 3 hours.</p>
+        <p>Live figures load from GitHub and each project's site when you open the page, and every 15 minutes after that. Daily history, game lists and the GTA 6 score update several times a day.</p>
       </details>
     </section>
 
@@ -396,7 +406,7 @@
         <li>Compatibility lists only include games someone has tested and reported, and statuses can lag behind the latest build.</li>
         <li>AI-assisted commits are commits on the main branch in the last 30 days that name an AI coding agent (Claude, Copilot, Codex, Cursor, Devin, Jules or Gemini) as author or co-author. Agent use that isn't disclosed in the commit can't be seen, so this is a floor.</li>
         <li>Projected finish dates assume the average pace of the last 90 days of saved history carries on unchanged, and need at least 21 days of it. They're a rough guess, not a promise; real progress comes in bursts, and the catalog keeps growing.</li>
-        <li>Live figures load straight from GitHub and each project's site when the page opens, and again every 15 minutes. GitHub allows about 6 full refreshes an hour from one network without signing in; past that, the page shows saved figures. History comes from the collector, which runs every 3 hours.</li>
+        <li>Live figures load straight from GitHub and each project's site when the page opens, and again every 15 minutes. GitHub allows about 6 full refreshes an hour from one network without signing in; past that, the page shows saved figures. History comes from the collector, which is scheduled every 3 hours but in practice runs several times a day, as GitHub delays scheduled runs.</li>
         <li>Watch out for copycat repositories offering "official downloads" of these projects. Use only the repositories linked here.</li>
       </ul>
     </section>

@@ -9,7 +9,7 @@ interface Rate {
 
 const RATES: Rate[] = [
   { fps: 30, label: 'GTA 6 on every console, PS5 Pro included' },
-  { fps: 60, label: 'A console performance mode; GTA 6 has none announced' },
+  { fps: 60, label: 'A console performance mode; GTA 6 has none' },
   { fps: 120, label: 'A high-refresh PC monitor' },
 ];
 /** Common display refresh rates; a measured rate snaps to the nearest one. */
@@ -43,7 +43,7 @@ const GTA6_PC = {
         <h2 id="fps-h">What frame rate looks like</h2>
         <p class="note">
           <a href="https://www.rockstargames.com/newswire/article/89834o94713o21/pre-load-grand-theft-auto-vi-now">Rockstar says</a>
-          GTA 6 targets 30 fps on every console, PS5 Pro included. Below, five scenes drawn live in your browser,
+          GTA 6 runs at 30 fps on every console, PS5 Pro included. Below, five scenes drawn live in your browser,
           side by side at 30, 60 and 120 fps. The lower the rate, the more motion jumps instead of glides.
           Testers' FPS reports elsewhere on this page mean the same thing.
         </p>

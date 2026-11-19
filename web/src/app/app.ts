@@ -12,6 +12,7 @@ import { PlayableGame, ProjectDef, ProjectName, Snapshot } from './models';
 import { GTA6_RELEASE, PROJECTS, PS5_CATALOG_FALLBACK } from './projects';
 import { TrackerService } from './tracker.service';
 import { FpsDemo } from './fps-demo';
+import { GtaRoutes } from './gta-routes';
 
 interface Stat {
   label: string;
@@ -80,7 +81,7 @@ function readTheme(): Theme {
 
 @Component({
   selector: 'app-root',
-  imports: [BarChart, LineChart, Icon, FundButton, GtaReadiness, ContributorsBoard, FpsDemo],
+  imports: [BarChart, LineChart, Icon, FundButton, GtaReadiness, GtaRoutes, ContributorsBoard, FpsDemo],
   templateUrl: './app.html',
 })
 export class App {

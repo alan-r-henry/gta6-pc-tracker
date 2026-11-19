@@ -441,6 +441,15 @@ h3 > .icon { color: var(--muted); }
 .gta-group { display: grid; gap: 6px; }
 .gta-group h4 { margin: 6px 0 0; font-size: var(--t-body); font-weight: 650; color: var(--muted); }
 .gta-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.routes { list-style: none; margin: 0; padding: 0; }
+.route { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.route h3 { margin: 0; }
+.route p { margin: 0; flex: 1; }
+.route-src { font-size: var(--t-body); color: var(--muted); }
+.players dl { margin: 0; display: grid; gap: 4px; }
+.players dt { font-weight: 650; margin-top: 10px; }
+.players dt:first-child { margin-top: 0; }
+.players dd { margin: 0; color: var(--muted); }
 .gta-list li { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; font-size: var(--t-body); padding: 7px 0; border-bottom: 1px solid var(--line); }
 .gta-list li .icon { color: var(--muted); }
 .gta-list li.done .icon { color: var(--ok); }
