@@ -1,6 +1,6 @@
 /** Where the site is published, and the optional visit counter. Changing either needs a rebuild. */
 export const SITE = {
-  url: 'https://alan-r-henry.github.io/ps5-emu-tracker/',
+  url: 'https://alan-r-henry.github.io/gta6-pc-tracker/',
   /**
    * GoatCounter site code: "ps5tracker" for ps5tracker.goatcounter.com. Empty turns counting off.
    * GoatCounter's own script never loads; the page requests a 1×1 image from the count endpoint, so no

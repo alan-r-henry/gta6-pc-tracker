@@ -1,6 +1,6 @@
 # Publishing the GTA 6 PC Tracker
 
-The site is published to **https://alan-r-henry.github.io/ps5-emu-tracker/** by GitHub Actions
+The site is published to **https://alan-r-henry.github.io/gta6-pc-tracker/** by GitHub Actions
 (`.github/workflows/deploy.yml`). The workflow collects fresh data every 3 hours, builds the Angular app
 and deploys it to GitHub Pages. There is no server, database or login, so the only ways to change the
 site are your GitHub account and this repository's settings. Steps 1 and 4 protect both.
@@ -21,12 +21,12 @@ Anyone who controls this account controls the site, including the UPI ID.
 
 ## 2. Create the repository
 
-On github.com: **New repository** → name `ps5-emu-tracker`, **Public** (free GitHub Pages needs it),
+On github.com: **New repository** → name `gta6-pc-tracker`, **Public** (free GitHub Pages needs it),
 with no README, licence or .gitignore (this folder already has them).
 
 ## 3. Push the code
 
-From `C:\Users\csp\ps5-emu-tracker`:
+From `C:\Users\csp\gta6-pc-tracker`:
 
 ```bash
 git init -b main
@@ -40,7 +40,7 @@ or `node_modules/`.
 
 ```bash
 git commit -m "PS5 emulation tracker"
-git remote add origin https://github.com/alan-r-henry/ps5-emu-tracker.git
+git remote add origin https://github.com/alan-r-henry/gta6-pc-tracker.git
 git push -u origin main
 ```
 
@@ -87,9 +87,9 @@ rebuilds the compatibility history; later runs are quicker. The site appears at 
 ## 6. Search engines
 
 1. **Google Search Console** (https://search.google.com/search-console) → *Add property* →
-   **URL prefix** → `https://alan-r-henry.github.io/ps5-emu-tracker/` → verify with the **HTML tag**.
+   **URL prefix** → `https://alan-r-henry.github.io/gta6-pc-tracker/` → verify with the **HTML tag**.
    Paste the tag into `web/src/index.prod.html` where the comment says, then commit and push.
-2. In Search Console → **Sitemaps**, submit `https://alan-r-henry.github.io/ps5-emu-tracker/sitemap.xml`,
+2. In Search Console → **Sitemaps**, submit `https://alan-r-henry.github.io/gta6-pc-tracker/sitemap.xml`,
    and use **URL inspection → Request indexing** on the home page.
 3. **Bing Webmaster Tools** (https://www.bing.com/webmasters) can import the property from Search Console.
    Bing also feeds DuckDuckGo and others.

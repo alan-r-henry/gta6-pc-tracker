@@ -21,7 +21,7 @@ import unicodedata
 from pathlib import Path
 from urllib.parse import quote as url_quote, urlsplit
 
-SITE = "https://alan-r-henry.github.io/ps5-emu-tracker/"
+SITE = "https://alan-r-henry.github.io/gta6-pc-tracker/"
 TOP_TIER = {"AnyPS5": "playable", "KytyPS5": "in-game", "SharpEmu": "playable"}
 STAGE = {"none": "not tested", "boots": "boots", "menus": "reaches the menus", "ingame": "gets in-game",
          "playable": "is playable"}
@@ -394,7 +394,7 @@ SAFE_COVER = re.compile(r"https://image\.api\.playstation\.com/[\w./%-]+\Z")
 # 'inline-speculation-rules' allows only the prefetch rules below, never inline JavaScript.
 PAGE_CSP = ("default-src 'none'; script-src 'self' 'inline-speculation-rules'; style-src 'self'; font-src 'self'; "
             "img-src 'self' https://image.api.playstation.com; base-uri 'none'; form-action 'none'")
-BASE = urlsplit(SITE).path  # "/ps5-emu-tracker/"
+BASE = urlsplit(SITE).path  # "/gta6-pc-tracker/"
 # Browsers that support it fetch a game page while the pointer rests on its link, so it opens at once.
 PREFETCH = json.dumps({"prefetch": [{"where": {"href_matches": [f"{BASE}games/*", f"{BASE}gta-6/"]}, "eagerness": "moderate"}]})
 INK = {"AnyPS5": "c", "KytyPS5": "m", "SharpEmu": "y"}  # each emulator's colour class (.ink-c etc. in styles.css)

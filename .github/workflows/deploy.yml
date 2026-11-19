@@ -170,7 +170,7 @@ jobs:
     timeout-minutes: 5
     permissions: {}
     env:
-      SITE: https://alan-r-henry.github.io/ps5-emu-tracker/
+      SITE: https://alan-r-henry.github.io/gta6-pc-tracker/
       KEY: 2081ad7c27b7fe7fcaee742d1ed6d703
     steps:
       - name: Notify search engines
