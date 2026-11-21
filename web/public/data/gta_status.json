@@ -1,6 +1,6 @@
 {
   "_help": "Edited by hand when news breaks; the collector never touches it. 'copyable' turns true once there's a public way to copy (dump) GTA 6 off a PS5, which emulators need before anyone can test it. 'routes' lists every way to get GTA 6 onto a PC (status: works, partial or blocked), 'players' the people and groups involved, and 'timeline' the dated events that got here, newest first. Keep every claim sourced, say 'reported' for anything Rockstar or Sony hasn't confirmed, and never link to exploits, payloads, jailbreak tools or game files: cite news coverage instead.",
-  "updated": "2026-11-19",
+  "updated": "2026-11-22",
   "copyable": false,
   "copy_blocker": "GTA 6 needs PS5 firmware 14.23, which Sony released on November 17, and there's no public way to copy games off a PS5 on any 14.xx firmware: public exploits stop at 13.60. Days before launch the PS5 hacker Gezine said he had dumped an unnamed game on 14.22, one version older, but he hasn't shown proof or shared how.",
   "firmware": "Sony confirmed that GTA 6 needs PS5 system software 26.07-14.23.00, released on November 17, 2026; its notes list only security fixes. The pre-load package had listed 14.22, and earlier builds 14.10.",
@@ -62,7 +62,7 @@
       "title": "Xbox emulation",
       "status": "blocked",
       "label": "No emulator exists",
-      "text": "No emulator runs Xbox Series X|S or Xbox One games on PC, and no public jailbreak exists for the Series X|S, so there's no way to copy GTA 6 off an Xbox either. Microsoft's own PC backward compatibility covers only original Xbox and Xbox 360 games. A widely shared claim that GTA 6 is built on Microsoft's PC-like GDK toolkit is unverified.",
+      "text": "No emulator runs Xbox Series X|S or Xbox One games on PC, and no public jailbreak exists for the Series X|S, so there's no way to copy GTA 6 off an Xbox either. Microsoft's own PC backward compatibility covers only original Xbox and Xbox 360 games. On November 20 the leaker Cyberleek released a claimed Xbox build, minus its executable, and claimed it would be emulated within a week; nothing has run it, and there's still no Xbox Series emulator to run it on. A widely shared claim that GTA 6 is built on Microsoft's PC-like GDK toolkit is unverified.",
       "source": { "name": "What is true about Xbox hacking in 2026", "url": "https://pasqualepillitteri.it/en/news/30242/xbox-hacked-2026-what-is-true" }
     }
   ],
@@ -152,6 +152,12 @@
       "url": "https://pasqualepillitteri.it/en/news/30242/xbox-hacked-2026-what-is-true"
     },
     {
+      "group": "Leakers",
+      "name": "Cyberleek",
+      "text": "An anonymous leaker who posted GTA 6 footage and story spoilers before launch. On November 20 they released a claimed Xbox build without its executable, tied the executable to a $15 million market cap for their crypto token, and promised it by November 23 regardless. They say the community will emulate it within a week at well over 30 fps; no Xbox Series emulator exists to back that up. Outlets warn the token scheme looks like a pump.",
+      "url": "https://www.pcgamer.com/games/grand-theft-auto/cyberleek-drops-what-they-claim-is-a-near-complete-gta-6-xbox-build-online/"
+    },
+    {
       "group": "Fan porters and PC tools",
       "name": "deadinside28 (bbport)",
       "text": "Released bbport on October 1, a native PC port of Bloodborne that started the wave of fan-rebuilt PlayStation games. Players need their own dumped copy.",
@@ -210,9 +216,20 @@
       "name": "Fake emulator pages",
       "text": "Look-alike GitHub pages for AnyPS5 and KytyPS5, and invented \"emulators\" such as PCSX5, push password-stealing malware. The real emulators are free, open source and download from their own GitHub projects.",
       "url": "https://www.tweaktown.com/news/114386/fake-anyps5-and-kytyps5-repositories-on-github-are-spreading-password-stealing-malware/index.html"
+    },
+    {
+      "group": "Scams to avoid",
+      "name": "Fake \"Cyberleek build\" downloads",
+      "text": "Torrents branded as Cyberleek builds have circulated since August with clashing sizes (113, 130 and 145 GB). One 113 GB \"ISO\" was almost entirely zero padding wrapped around malware, and a gta6_installer.exe was identified as a password and session stealer. Treat any leaked build or launcher as malware until proven otherwise.",
+      "url": "https://www.tweaktown.com/news/113880/gta-6-leak-claims-explode-as-multiple-cyberleek-full-build-downloads-appear-online/index.html"
     }
   ],
   "timeline": [
+    {
+      "date": "2026-11-20",
+      "text": "The leaker Cyberleek releases what they claim is a near-complete November 2026 Xbox build of GTA 6, about 200 GB, but withholds the main executable until their crypto token hits a $15 million market cap, or November 23 at the latest. Nobody has verified the files or run them.",
+      "source": { "name": "PC Gamer: Cyberleek drops what they claim is a near-complete GTA 6 Xbox build", "url": "https://www.pcgamer.com/games/grand-theft-auto/cyberleek-drops-what-they-claim-is-a-near-complete-gta-6-xbox-build-online/" }
+    },
     {
       "date": "2026-11-19",
       "text": "GTA 6 launches on PS5 and Xbox Series X|S, at 30 fps on every console. There's no PC version, and the PS5 version requires firmware 14.23.",
