@@ -13,7 +13,9 @@
     { "name": "TweakTown: GTA V's PS5 version runs at 60 fps on PC with an RX 6750 XT", "url": "https://www.tweaktown.com/news/114728/gta-5s-ps5-version-now-runs-at-60fps-on-pc-with-a-mid-range-radeon-rx-6750-xt/index.html" },
     { "name": "Sportskeeda: GamesBeat reports a GTA 6 PC release in early 2027", "url": "https://www.sportskeeda.com/gta/news-gta-6-pc-release-reportedly-revealed-when-can-expect-pc-port" },
     { "name": "Shacknews: Xbox clarifies GTA 6 won't stream on PC", "url": "https://www.shacknews.com/article/150935/xbox-clarifies-that-cloud-gaming-will-not-allow-gta-6-to-be-streamed-on-pc" },
-    { "name": "Undocumented Behavior: The Final Boss of PC Ports (video)", "url": "https://www.youtube.com/watch?v=eISnF1-bT1Y" }
+    { "name": "Undocumented Behavior: The Final Boss of PC Ports (video)", "url": "https://www.youtube.com/watch?v=eISnF1-bT1Y" },
+    { "name": "Undocumented Behavior: GTA 6's missing .exe is almost here, but there's a catch (video)", "url": "https://www.youtube.com/watch?v=n3AZpaOCo7s" },
+    { "name": "RockstarINTEL: Could this major GTA VI leak make it playable on PC?", "url": "https://rockstarintel.com/could-this-major-gta-vi-leak-make-it-playable-on-pc/" }
   ],
   "routes": [
     {
@@ -61,9 +63,9 @@
     {
       "title": "Xbox emulation",
       "status": "blocked",
-      "label": "No emulator exists",
-      "text": "No emulator runs Xbox Series X|S or Xbox One games on PC, and no public jailbreak exists for the Series X|S, so there's no way to copy GTA 6 off an Xbox either. Microsoft's own PC backward compatibility covers only original Xbox and Xbox 360 games. On November 20 the leaker Cyberleek released a claimed Xbox build, minus its executable, and claimed it would be emulated within a week; nothing has run it, and there's still no Xbox Series emulator to run it on. A widely shared claim that GTA 6 is built on Microsoft's PC-like GDK toolkit is unverified.",
-      "source": { "name": "What is true about Xbox hacking in 2026", "url": "https://pasqualepillitteri.it/en/news/30242/xbox-hacked-2026-what-is-true" }
+      "label": "Needs the executable",
+      "text": "Since launch, open-source projects have started running Xbox Series X|S games on PC, which the console's PC-like x86-64 processor makes easier than PS5 emulation. TomBox, a general Xbox Series runtime, gets an Xbox build of Fortnite to its lobby, though with wrong materials, no audio and nothing playable. Leonida, built only for GTA 6, has translated all 26,503 of the game's graphics shaders for Vulkan. Neither has run GTA 6: the only copy they can work from is the build Cyberleek leaked on November 19, which lacks its executable, and the game's files are reportedly encrypted with a key held in that executable. Cyberleek promises it on Monday, November 23, around 17:00 UTC, while reportedly also saying it \"won't run anyway\". No public jailbreak exists for the Series X|S, so there's still no way to copy GTA 6 off your own Xbox, and Microsoft's own PC backward compatibility covers only original Xbox and Xbox 360 games.",
+      "source": { "name": "RockstarINTEL: Could this major GTA VI leak make it playable on PC?", "url": "https://rockstarintel.com/could-this-major-gta-vi-leak-make-it-playable-on-pc/" }
     }
   ],
   "players": [
@@ -96,6 +98,18 @@
       "name": "SharpEmu (par274)",
       "text": "An experimental PS5 emulator written in C#, started in March 2026 by par274, who still writes most of it. It has the most games marked fully playable, 47, and GTA V's PS5 version gets in-game.",
       "url": "https://github.com/sharpemu/sharpemu"
+    },
+    {
+      "group": "Emulator developers",
+      "name": "Leonida (ItsNotRexed)",
+      "text": "Started on November 20, a day after launch: an open-source project to recompile GTA 6's Xbox Series version so it runs natively on Windows, built from the player's own copy. Within two days it passed 11,000 GitHub stars and 1,800 pull requests opened. All 26,503 of the game's shaders translate to Vulkan, but by its own status page the game doesn't boot yet, and can't until an executable exists.",
+      "url": "https://github.com/ItsNotRexed/Leonida"
+    },
+    {
+      "group": "Emulator developers",
+      "name": "TomBox (drycheetah84) and xbox-emulator (omonkeyz)",
+      "text": "TomBox, started on November 17, reimplements the Xbox Series system layer so console games run as Windows programs. Its only tested game, an Xbox build of Fortnite, boots and reaches the lobby with rendering bugs and no audio. omonkeyz's xbox-emulator continues it as a general Xbox Series emulator. Neither has run GTA 6.",
+      "url": "https://github.com/drycheetah84/TomBox"
     },
     {
       "group": "PS5 hackers (the copy problem)",
@@ -154,8 +168,8 @@
     {
       "group": "Leakers",
       "name": "Cyberleek",
-      "text": "An anonymous leaker who posted GTA 6 footage and story spoilers before launch. On November 20 they released a claimed Xbox build without its executable, tied the executable to a $15 million market cap for their crypto token, and promised it by November 23 regardless. They say the community will emulate it within a week at well over 30 fps; no Xbox Series emulator exists to back that up. Outlets warn the token scheme looks like a pump.",
-      "url": "https://www.pcgamer.com/games/grand-theft-auto/cyberleek-drops-what-they-claim-is-a-near-complete-gta-6-xbox-build-online/"
+      "text": "An anonymous leaker who posted GTA 6 footage and story spoilers before launch. On November 19 they released about 200 GB of an Xbox build without its executable. Rockstar community researcher Lucas7yoshi says the files are real but from an older build, and that its assets are encrypted with a key held in the missing executable. Cyberleek tied the executable to their crypto token reaching a market cap of $15 million, later reportedly lowered to $6 million, and promised it regardless when a poll closes on Monday, November 23, at 6 PM CET. They have also reportedly said it \"won't run anyway\".",
+      "url": "https://rockstarintel.com/could-this-major-gta-vi-leak-make-it-playable-on-pc/"
     },
     {
       "group": "Fan porters and PC tools",
@@ -227,8 +241,13 @@
   "timeline": [
     {
       "date": "2026-11-20",
-      "text": "The leaker Cyberleek releases what they claim is a near-complete November 2026 Xbox build of GTA 6, about 200 GB, but withholds the main executable until their crypto token hits a $15 million market cap, or November 23 at the latest. Nobody has verified the files or run them.",
-      "source": { "name": "PC Gamer: Cyberleek drops what they claim is a near-complete GTA 6 Xbox build", "url": "https://www.pcgamer.com/games/grand-theft-auto/cyberleek-drops-what-they-claim-is-a-near-complete-gta-6-xbox-build-online/" }
+      "text": "ItsNotRexed starts Leonida, an open-source project to recompile GTA 6's Xbox version for PC. By November 22 it has more than 11,000 GitHub stars and has translated all of the game's shaders, but it can't boot the game without the missing executable.",
+      "source": { "name": "Leonida on GitHub", "url": "https://github.com/ItsNotRexed/Leonida" }
+    },
+    {
+      "date": "2026-11-19",
+      "text": "Hours after launch, the leaker Cyberleek releases about 200 GB of an Xbox build of GTA 6 but withholds the executable needed to run it, promising it by November 23. Community researcher Lucas7yoshi confirms the files are from an older Xbox build.",
+      "source": { "name": "RockstarINTEL: Could this major GTA VI leak make it playable on PC?", "url": "https://rockstarintel.com/could-this-major-gta-vi-leak-make-it-playable-on-pc/" }
     },
     {
       "date": "2026-11-19",
